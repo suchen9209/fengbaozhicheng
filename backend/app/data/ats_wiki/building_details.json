@@ -1,0 +1,465 @@
+{
+  "Clay Pit": {
+    "inputs": {
+      "Planks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Clay": 1
+    },
+    "species_preferences": []
+  },
+  "Forager's Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Vegetables": 1
+    },
+    "species_preferences": [
+      "Human"
+    ]
+  },
+  "Harvester's Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Vegetables": 1
+    },
+    "species_preferences": []
+  },
+  "Herbalists' Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Mushrooms": 1
+    },
+    "species_preferences": [
+      "Harpy"
+    ]
+  },
+  "Small Forager's Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Vegetables": 1
+    },
+    "species_preferences": [
+      "Human"
+    ]
+  },
+  "Small Herbalist's Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Mushrooms": 1
+    },
+    "species_preferences": [
+      "Harpy"
+    ]
+  },
+  "Small Trapper's Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Eggs": 1
+    },
+    "species_preferences": [
+      "Lizard"
+    ]
+  },
+  "Stonecutters' Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Sea Marrow": 1
+    },
+    "species_preferences": []
+  },
+  "Trappers' Camp": {
+    "inputs": {
+      "Wood": 10,
+      "Parts": 3
+    },
+    "outputs": {
+      "Eggs": 1
+    },
+    "species_preferences": [
+      "Lizard"
+    ]
+  },
+  "Woodcutters' Camp": {
+    "inputs": {
+      "Parts": 2
+    },
+    "outputs": {
+      "Wood": 1
+    },
+    "species_preferences": [
+      "Beaver"
+    ]
+  },
+  "Farm Field": {
+    "inputs": {},
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Forester's Hut": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Crystalized Dew": 1
+    },
+    "species_preferences": []
+  },
+  "Greenhouse": {
+    "inputs": {
+      "Bricks": 2,
+      "Fabric": 1,
+      "Parts": 1
+    },
+    "outputs": {
+      "Mushrooms": 1
+    },
+    "species_preferences": []
+  },
+  "Hallowed Herb Garden": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Berries": 1
+    },
+    "species_preferences": []
+  },
+  "Hallowed Small Farm": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Plant Fiber": 1
+    },
+    "species_preferences": []
+  },
+  "Herb Garden": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Herbs": 1
+    },
+    "species_preferences": []
+  },
+  "Homestead": {
+    "inputs": {
+      "Planks": 5,
+      "Bricks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Grain": 1,
+      "Vegetables": 1,
+      "Mushrooms": 1
+    },
+    "species_preferences": []
+  },
+  "Plantation": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Plant Fiber": 1
+    },
+    "species_preferences": []
+  },
+  "Ranch": {
+    "inputs": {
+      "Planks": 5,
+      "Parts": 2
+    },
+    "outputs": {
+      "Eggs": 1
+    },
+    "species_preferences": []
+  },
+  "Small Farm": {
+    "inputs": {
+      "Planks": 2
+    },
+    "outputs": {
+      "Vegetables": 1
+    },
+    "species_preferences": []
+  },
+  "Bakery": {
+    "inputs": {
+      "Planks": 5,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Biscuits": 1
+    },
+    "species_preferences": []
+  },
+  "Beanery": {
+    "inputs": {
+      "Planks": 8,
+      "Bricks": 4
+    },
+    "outputs": {
+      "Crystalized Dew": 1
+    },
+    "species_preferences": []
+  },
+  "Brewery": {
+    "inputs": {
+      "Planks": 2,
+      "Bricks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Pack of Crops": 1
+    },
+    "species_preferences": []
+  },
+  "Brick Oven": {
+    "inputs": {
+      "Bricks": 5
+    },
+    "outputs": {
+      "Incense": 1
+    },
+    "species_preferences": []
+  },
+  "Butcher": {
+    "inputs": {
+      "Planks": 5,
+      "Bricks": 2
+    },
+    "outputs": {
+      "Skewers": 1
+    },
+    "species_preferences": []
+  },
+  "Cellar": {
+    "inputs": {
+      "Bricks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Jerky": 1
+    },
+    "species_preferences": []
+  },
+  "Cookhouse": {
+    "inputs": {
+      "Planks": 8,
+      "Bricks": 4
+    },
+    "outputs": {
+      "Pigment": 1
+    },
+    "species_preferences": []
+  },
+  "Distillery": {
+    "inputs": {
+      "Planks": 2,
+      "Bricks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Barrels": 1
+    },
+    "species_preferences": []
+  },
+  "Field Kitchen": {
+    "inputs": {
+      "Planks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Jerky": 1,
+      "Porridge": 1,
+      "Biscuits": 1,
+      "Pickled Goods": 1
+    },
+    "species_preferences": []
+  },
+  "FlawlessBrewery": {
+    "inputs": {
+      "Planks": 2,
+      "Bricks": 2,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Pack of Crops": 1
+    },
+    "species_preferences": []
+  },
+  "Granary": {
+    "inputs": {
+      "Planks": 5,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Pack of Crops": 1
+    },
+    "species_preferences": []
+  },
+  "Grill": {
+    "inputs": {
+      "Planks": 5,
+      "Bricks": 2
+    },
+    "outputs": {
+      "Skewers": 1
+    },
+    "species_preferences": []
+  },
+  "Smokehouse": {
+    "inputs": {
+      "Planks": 5,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Incense": 1
+    },
+    "species_preferences": []
+  },
+  "Teahouse": {
+    "inputs": {
+      "Planks": 5,
+      "Bricks": 2
+    },
+    "outputs": {
+      "Waterskins": 1
+    },
+    "species_preferences": []
+  },
+  "Tinctuary": {
+    "inputs": {
+      "Planks": 5,
+      "Fabric": 2
+    },
+    "outputs": {
+      "Pigment": 1
+    },
+    "species_preferences": []
+  },
+  "Bath House": {
+    "inputs": {
+      "Planks": 10,
+      "Bricks": 8,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Clan Hall": {
+    "inputs": {
+      "Planks": 20,
+      "Bricks": 8,
+      "Fabric": 4
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Explorer's Lodge": {
+    "inputs": {
+      "Planks": 10,
+      "Bricks": 4,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Forum": {
+    "inputs": {
+      "Bricks": 16,
+      "Fabric": 4
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Guild House": {
+    "inputs": {
+      "Planks": 40,
+      "Fabric": 4
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Holy Market": {
+    "inputs": {
+      "Planks": 20,
+      "Fabric": 12
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Holy Temple": {
+    "inputs": {
+      "Planks": 10,
+      "Bricks": 8,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Market": {
+    "inputs": {
+      "Planks": 20,
+      "Fabric": 12
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Monastery": {
+    "inputs": {
+      "Bricks": 20
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Tavern": {
+    "inputs": {
+      "Planks": 20,
+      "Bricks": 4,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Tea Doctor": {
+    "inputs": {
+      "Planks": 10,
+      "Bricks": 8,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  },
+  "Temple": {
+    "inputs": {
+      "Planks": 10,
+      "Bricks": 8,
+      "Fabric": 8
+    },
+    "outputs": {},
+    "species_preferences": []
+  }
+}

@@ -1,0 +1,929 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-12",
+  "source": "ats_wiki + templates",
+  "blueprints": [
+    {
+      "name": "Clay Pit",
+      "name_en": "Clay Pit",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Clay": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Clay Pit (Camps)"
+    },
+    {
+      "name": "Forager's Camp",
+      "name_en": "Forager's Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Wood": 10,
+        "Parts": 3
+      },
+      "outputs": {
+        "Vegetables": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Human"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Forager's Camp (Camps)"
+    },
+    {
+      "name": "Harvester's Camp",
+      "name_en": "Harvester's Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Wood": 10,
+        "Parts": 3
+      },
+      "outputs": {
+        "Vegetables": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Harvester's Camp (Camps)"
+    },
+    {
+      "name": "Herbalists' Camp",
+      "name_en": "Herbalists' Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Wood": 10,
+        "Parts": 3
+      },
+      "outputs": {
+        "Mushrooms": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Harpy"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Herbalists' Camp (Camps)"
+    },
+    {
+      "name": "Stonecutters' Camp",
+      "name_en": "Stonecutters' Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Wood": 10,
+        "Parts": 3
+      },
+      "outputs": {
+        "Sea Marrow": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Stonecutters' Camp (Camps)"
+    },
+    {
+      "name": "Trappers' Camp",
+      "name_en": "Trappers' Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Wood": 10,
+        "Parts": 3
+      },
+      "outputs": {
+        "Eggs": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Lizard"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Trappers' Camp (Camps)"
+    },
+    {
+      "name": "Woodcutters' Camp",
+      "name_en": "Woodcutters' Camp",
+      "type": "Camps",
+      "dlc": "Base",
+      "inputs": {
+        "Parts": 2
+      },
+      "outputs": {
+        "Wood": 1
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": [
+          "Beaver"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Woodcutters' Camp (Camps)"
+    },
+    {
+      "name": "Greenhouse",
+      "name_en": "Greenhouse",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Bricks": 2,
+        "Fabric": 1,
+        "Parts": 1
+      },
+      "outputs": {
+        "Mushrooms": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Greenhouse (Food_Production)"
+    },
+    {
+      "name": "Herb Garden",
+      "name_en": "Herb Garden",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2
+      },
+      "outputs": {
+        "Herbs": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Herb Garden (Food_Production)"
+    },
+    {
+      "name": "Homestead",
+      "name_en": "Homestead",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Bricks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Grain": 1,
+        "Vegetables": 1,
+        "Mushrooms": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Homestead (Food_Production)"
+    },
+    {
+      "name": "Plantation",
+      "name_en": "Plantation",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2
+      },
+      "outputs": {
+        "Plant Fiber": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Plantation (Food_Production)"
+    },
+    {
+      "name": "Ranch",
+      "name_en": "Ranch",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Parts": 2
+      },
+      "outputs": {
+        "Eggs": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Ranch (Food_Production)"
+    },
+    {
+      "name": "Small Farm",
+      "name_en": "Small Farm",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2
+      },
+      "outputs": {
+        "Vegetables": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Small Farm (Food_Production)"
+    },
+    {
+      "name": "Bakery",
+      "name_en": "Bakery",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Biscuits": 1
+      },
+      "values": {
+        "food": 4,
+        "fuel": 1,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Bakery (Food_Production)"
+    },
+    {
+      "name": "Brewery",
+      "name_en": "Brewery",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2,
+        "Bricks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Pack of Crops": 1
+      },
+      "values": {
+        "food": 1,
+        "fuel": 0,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Brewery (Food_Production)"
+    },
+    {
+      "name": "Brick Oven",
+      "name_en": "Brick Oven",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Bricks": 5
+      },
+      "outputs": {
+        "Incense": 1
+      },
+      "values": {
+        "food": 2,
+        "fuel": 4,
+        "resolve": 0
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Brick Oven (Food_Production)"
+    },
+    {
+      "name": "Butcher",
+      "name_en": "Butcher",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Bricks": 2
+      },
+      "outputs": {
+        "Skewers": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 1,
+        "resolve": 0
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Butcher (Food_Production)"
+    },
+    {
+      "name": "Cellar",
+      "name_en": "Cellar",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Bricks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Jerky": 1
+      },
+      "values": {
+        "food": 1,
+        "fuel": 0,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Cellar (Food_Production)"
+    },
+    {
+      "name": "Cookhouse",
+      "name_en": "Cookhouse",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 8,
+        "Bricks": 4
+      },
+      "outputs": {
+        "Pigment": 1
+      },
+      "values": {
+        "food": 4,
+        "fuel": 1,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Cookhouse (Food_Production)"
+    },
+    {
+      "name": "Distillery",
+      "name_en": "Distillery",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2,
+        "Bricks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Barrels": 1
+      },
+      "values": {
+        "food": 1,
+        "fuel": 0,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Distillery (Food_Production)"
+    },
+    {
+      "name": "Field Kitchen",
+      "name_en": "Field Kitchen",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 2,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Jerky": 1,
+        "Porridge": 1,
+        "Biscuits": 1,
+        "Pickled Goods": 1
+      },
+      "values": {
+        "food": 4,
+        "fuel": 1,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Field Kitchen (Food_Production)"
+    },
+    {
+      "name": "Granary",
+      "name_en": "Granary",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Pack of Crops": 1
+      },
+      "values": {
+        "food": 3,
+        "fuel": 1,
+        "resolve": 0
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Granary (Food_Production)"
+    },
+    {
+      "name": "Grill",
+      "name_en": "Grill",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Bricks": 2
+      },
+      "outputs": {
+        "Skewers": 1
+      },
+      "values": {
+        "food": 4,
+        "fuel": 1,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Grill (Food_Production)"
+    },
+    {
+      "name": "Smokehouse",
+      "name_en": "Smokehouse",
+      "type": "Food_Production",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 5,
+        "Fabric": 2
+      },
+      "outputs": {
+        "Incense": 1
+      },
+      "values": {
+        "food": 2,
+        "fuel": 4,
+        "resolve": 0
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Smokehouse (Food_Production)"
+    },
+    {
+      "name": "Bath House",
+      "name_en": "Bath House",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 10,
+        "Bricks": 8,
+        "Fabric": 8
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Bath House (City_Buildings)"
+    },
+    {
+      "name": "Clan Hall",
+      "name_en": "Clan Hall",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 20,
+        "Bricks": 8,
+        "Fabric": 4
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 3
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Clan Hall (City_Buildings)"
+    },
+    {
+      "name": "Explorer's Lodge",
+      "name_en": "Explorer's Lodge",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 10,
+        "Bricks": 4,
+        "Fabric": 8
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 3
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Explorer's Lodge (City_Buildings)"
+    },
+    {
+      "name": "Guild House",
+      "name_en": "Guild House",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 40,
+        "Fabric": 4
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 3
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Guild House (City_Buildings)"
+    },
+    {
+      "name": "Monastery",
+      "name_en": "Monastery",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Bricks": 20
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Monastery (City_Buildings)"
+    },
+    {
+      "name": "Tavern",
+      "name_en": "Tavern",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 20,
+        "Bricks": 4,
+        "Fabric": 8
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Tavern (City_Buildings)"
+    },
+    {
+      "name": "Temple",
+      "name_en": "Temple",
+      "type": "City_Buildings",
+      "dlc": "Base",
+      "inputs": {
+        "Planks": 10,
+        "Bricks": 8,
+        "Fabric": 8
+      },
+      "outputs": {
+        "Parts": 4
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": [
+          "Human",
+          "Beaver",
+          "Harpy",
+          "Lizard",
+          "Fox"
+        ],
+        "biome_bonuses": {}
+      },
+      "description": "ATS building: Temple (City_Buildings)"
+    }
+  ]
+}

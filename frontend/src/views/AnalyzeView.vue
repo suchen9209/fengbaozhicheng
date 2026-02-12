@@ -1,0 +1,294 @@
+<template>
+  <div class="analyze">
+    <el-container>
+      <el-header>
+        <h1>蓝图分析</h1>
+      </el-header>
+
+      <el-main>
+        <el-steps :active="currentStep" align-center finish-status="success">
+          <el-step title="上传截图" />
+          <el-step title="确认识别" />
+          <el-step title="查看推荐" />
+        </el-steps>
+
+        <div class="content-area">
+          <!-- Step 1: Upload -->
+          <div v-show="currentStep === 0" class="step-content">
+            <upload-component
+              ref="uploadRef"
+              @upload-success="handleUploadSuccess"
+              @upload-error="handleUploadError"
+            />
+          </div>
+
+          <!-- Step 2: Recognition -->
+          <div v-show="currentStep === 1" class="step-content">
+            <el-card>
+              <template #header>
+                <div class="card-header">
+                  <span>识别区域确认</span>
+                  <el-button type="text" @click="currentStep = 0">返回</el-button>
+                </div>
+              </template>
+              <recognition-box-component
+                v-if="uploadedImage"
+                ref="recognitionBoxRef"
+                :image-url="uploadedImage"
+                @boxes-updated="handleBoxesUpdated"
+              />
+              <div class="actions">
+                <el-button @click="currentStep = 0">返回</el-button>
+                <el-button 
+                  type="primary" 
+                  @click="startAnalysis" 
+                  :loading="analyzing"
+                  :disabled="analyzing"
+                >
+                  {{ analyzing ? '分析中...' : '开始分析' }}
+                </el-button>
+              </div>
+            </el-card>
+          </div>
+
+          <!-- Step 3: Results -->
+          <div v-show="currentStep === 2" class="step-content">
+            <results-component
+              :recommendations="recommendations"
+              :game-state="gameState"
+            />
+            <div class="actions">
+              <el-button @click="resetAnalysis">重新分析</el-button>
+              <el-button type="primary" @click="$router.push('/history')">
+                查看历史
+              </el-button>
+            </div>
+          </div>
+        </div>
+      </el-main>
+    </el-container>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import UploadComponent from '@/components/UploadComponent.vue'
+import RecognitionBoxComponent from '@/components/RecognitionBoxComponent.vue'
+import ResultsComponent from '@/components/ResultsComponent.vue'
+import apiClient from '@/services/api'
+import { useNotification } from '@/composables/useNotification'
+
+const { showSuccess, showWarning, showError } = useNotification()
+
+const currentStep = ref(0)
+const uploadedImage = ref<string>('')
+const uploadedFile = ref<File | null>(null)
+const analyzing = ref(false)
+const recommendations = ref<any[]>([])
+const gameState = ref<any>(null)
+const uploadRef = ref()
+const recognitionBoxRef = ref()
+const currentBoxes = ref<any[]>([])
+
+const handleBoxesUpdated = (boxes: any[]) => {
+  currentBoxes.value = boxes
+}
+
+const handleUploadSuccess = (imageUrl: string, file: File) => {
+  uploadedImage.value = imageUrl
+  uploadedFile.value = file
+  currentStep.value = 1
+  showSuccess('图片上传成功')
+}
+
+const handleUploadError = (error: Error) => {
+  showError(`上传失败: ${error.message}`)
+}
+
+const startAnalysis = async () => {
+  if (!uploadedFile.value) {
+    showWarning('请先上传图片')
+    return
+  }
+
+  analyzing.value = true
+
+  try {
+    // Prepare form data
+    const formData = new FormData()
+    formData.append('image', uploadedFile.value)
+    
+    // Get boxes from recognition component
+    const boxes = recognitionBoxRef.value?.getBoxCoordinates() || [
+      { x: 100, y: 50, width: 300, height: 200, label: 'blueprints' },
+      { x: 450, y: 50, width: 200, height: 150, label: 'resources' },
+      { x: 700, y: 50, width: 100, height: 100, label: 'species' }
+    ]
+    formData.append('boxes', JSON.stringify(boxes))
+    
+    // Get or create session ID
+    let sessionId = localStorage.getItem('session_id')
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      localStorage.setItem('session_id', sessionId)
+    }
+    formData.append('session_id', sessionId)
+    // 返回语言：根据浏览器语言或默认英文
+    const responseLang = /^zh/i.test(navigator.language) ? 'zh' : 'en'
+    formData.append('lang', responseLang)
+
+    // Call API
+    const response = await apiClient.post('/api/v1/analyze', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    // Update state
+    gameState.value = response.data.game_state
+    recommendations.value = response.data.recommendations
+
+    // Move to results step
+    currentStep.value = 2
+    showSuccess('分析完成')
+  } catch (error: any) {
+    console.error('Analysis failed:', error)
+    // Error message already shown by API interceptor
+  } finally {
+    analyzing.value = false
+  }
+}
+
+const resetAnalysis = () => {
+  currentStep.value = 0
+  uploadedImage.value = ''
+  uploadedFile.value = null
+  recommendations.value = []
+  gameState.value = null
+  uploadRef.value?.clearImage()
+}
+</script>
+
+<style scoped>
+.analyze {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.el-header {
+  background: white;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.el-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #303133;
+}
+
+.el-main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-area {
+  margin-top: 40px;
+}
+
+.step-content {
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recognition-area {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.recognition-area .el-image {
+  max-width: 100%;
+  max-height: 500px;
+}
+
+.hint {
+  color: #909399;
+  font-size: 14px;
+  text-align: center;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .el-header h1 {
+    font-size: 18px;
+  }
+
+  .el-main {
+    padding: 20px 12px;
+  }
+
+  .content-area {
+    margin-top: 20px;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions .el-button {
+    width: 100%;
+  }
+
+  :deep(.el-steps) {
+    padding: 0 10px;
+  }
+
+  :deep(.el-step__title) {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .el-header h1 {
+    font-size: 16px;
+  }
+
+  .el-main {
+    padding: 16px 8px;
+  }
+
+  :deep(.el-card__body) {
+    padding: 12px;
+  }
+}
+</style>

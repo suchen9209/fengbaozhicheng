@@ -1,0 +1,73 @@
+{
+  "Building Materials": [
+    "Bricks",
+    "Fabric",
+    "Parts",
+    "Planks",
+    "Wildfire Essence"
+  ],
+  "Consumable Items": [
+    "Ale",
+    "Coats",
+    "Cosmetics",
+    "Incense",
+    "Scrolls",
+    "Training Gear",
+    "Wine"
+  ],
+  "Crafting Resources": [
+    "Barrels",
+    "Clay",
+    "Copper Bar",
+    "Copper Ore",
+    "Crystalized Dew",
+    "Flour",
+    "Grain",
+    "Herbs",
+    "Leather",
+    "Pigment",
+    "Plant Fiber",
+    "Pottery",
+    "Reed",
+    "Resin",
+    "Sparkdew",
+    "Stone",
+    "Waterskins"
+  ],
+  "Food": [
+    "Berries",
+    "Biscuits",
+    "Eggs",
+    "Insects",
+    "Jerky",
+    "Meat",
+    "Mushrooms",
+    "Pickled Goods",
+    "Pie",
+    "Porridge",
+    "Roots",
+    "Skewers",
+    "Vegetables"
+  ],
+  "Fuel & Exploration": [
+    "Coal",
+    "Infused Tools",
+    "Oil",
+    "Purging Fire",
+    "Sea Marrow",
+    "Simple Tools",
+    "Wood"
+  ],
+  "Trade Goods": [
+    "Amber",
+    "Ancient Tablet",
+    "Artifacts",
+    "Food Stockpiles",
+    "Machinery",
+    "Pack of Building Materials",
+    "Pack of Crops",
+    "Pack of Luxury Goods",
+    "Pack of Provisions",
+    "Pack of Trade Goods"
+  ]
+}

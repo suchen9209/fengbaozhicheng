@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stormgate-backend
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./backend/app:/app/app:ro
+      - ./backend/data:/app/data:ro
+      - backend-uploads:/app/uploads
+      - backend-logs:/app/logs
+      - backend-db:/app/data/db
+    environment:
+      - DATABASE_PATH=/app/data/db/stormgate.db
+      - UPLOAD_DIR=/app/uploads
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - TEMPLATES_DIR=/app/app/data/templates
+      - BLUEPRINTS_DATA_PATH=/app/app/data/blueprints_data.json
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - stormgate-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8000}
+    container_name: stormgate-frontend
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - stormgate-network
+
+volumes:
+  backend-uploads:
+    driver: local
+  backend-logs:
+    driver: local
+  backend-db:
+    driver: local
+
+networks:
+  stormgate-network:
+    driver: bridge

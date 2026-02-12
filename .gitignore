@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Application
+uploads/
+logs/
+*.db
+*.log
+.env
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Template backups
+*.bak

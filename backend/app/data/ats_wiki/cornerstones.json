@@ -1,0 +1,617 @@
+[
+  {
+    "name": "Advanced Fuel",
+    "effect": "All Fuel Recipes are 25% faster.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Advanced Herbalism",
+    "effect": "+50% to the amount of goods produced in the Herb Garden.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Alarm Bells",
+    "effect": "Workers have a +50% chance of producing double yields when the Hearth's expected corruption rate is 200% or higher.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Ancient Artifact",
+    "effect": "A strange device left behind by the Great Civilization. When soaked in rainwater, it radiates warm light and brings encouragement to those around it. (+3 to Global Resolve)",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Ancient Pact",
+    "effect": "You can see the content of undiscovered Glades, but discovering Dangerous or Forbidden Glades kills 1 Villager.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Back to Nature",
+    "effect": "Increases yields by 100% in all Buildings that use Fertile Soil (Farms). You will lose all stored food (cooked and raw) upon choosing this cornerstone.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Baptism of Fire",
+    "effect": "Every 3 burnt Blightrot Cysts lowers Hostility by -10. While the Hearth is corrupted, you're unable to Sacrifice Resources.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Barrel Delivery Line",
+    "effect": "5 Barrels per minute.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Bed and Breakfast",
+    "effect": "Gain 10 Amber every time a trader arrives",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Biscuit Diet",
+    "effect": "Farmers have a +75% chance of producing double yields when under the effect of Biscuits.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Blight Extractor",
+    "effect": "Every completely infected Building (100% Blightrot) generated 3 Amber per minute, but also adds +15 Hostility.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Blood Price Contract",
+    "effect": "Gain 10 Amber every time a Villager dies or leaves.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Bone Tools",
+    "effect": "Gain 3 Tools every time a Villager leaves or dies.",
+    "rarity": "?"
+  },
+  {
+    "name": "Bread Peels",
+    "effect": "Bakery production is 50% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Burnt to a Crisp",
+    "effect": "Gain 20 Coal for every 3 burned Blightrot Cysts.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Calming the Forest",
+    "effect": "Every Glade Event solved by making a decision marked as Empathy lowers Hostility by -40 (the bonus is added retroactively)",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Cannibalism",
+    "effect": "Gain 30 Meat every time a Villager Dies or Leaves.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Cheap Construction",
+    "effect": "All Buildings cost 40% less (Building Materials), but every discovered Resource Deposit has -5 fewer charges.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Clay Delivery Line",
+    "effect": "3 Clay per minute.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Cooking Steam",
+    "effect": "Food production speed is increased by +10% for every 50 units of drizzle water stored.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Copper Extractor",
+    "effect": "Gain 1 Copper Ore for every 5 Wood produced. All Crystalized Dew production is reduced by 1",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Cosmetic Specialization",
+    "effect": "Gain +1 to Harpy Resolve for every 70 Cosmetics produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Crowded Caravan",
+    "effect": "Each newcomer group has 2 additional Villagers.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Crowded Houses",
+    "effect": "All Houses have room for 1 more Villager.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Deep Pockets",
+    "effect": "Gain 10 Amber for every 5 completed trade routes.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Deserted Caravans",
+    "effect": "Global production is 50% faster, but Trading is unavailable.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Dye Extractor",
+    "effect": "Gain 5 Pigment for every 10 Insects produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Economic Migration",
+    "effect": "Newcomers will arrive +15% quicker for every 2 levels of standing you have with other settlements in trade routes.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Exploration Contract",
+    "effect": "Gain 20 Reed and 20 Clay for each discovered Glade.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Exploration Expedition",
+    "effect": "Get a constant -5 penalty to Global Resolve, but +15 to Global Resolve for 5 minutes every time a new Glade is discovered.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Exploration Training",
+    "effect": "For every 5 Villagers with the need for Brawling fulfilled, the chance of bringing back twice as many goods from Glade Events increases by +20%.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Export Specialization",
+    "effect": "Gain +1 to production yields for all Packs of Goods.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Extraction Tools",
+    "effect": "Gain 6 Artifacts (Citadel Resource) for every 2 completed Dangerous and Forbidden Glade Events.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Family Gratitude",
+    "effect": "Get 40 Waterskins for every full Reputation Point obtained through high Resolve.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Fiber Delivery Line",
+    "effect": "3 Plant Fiber per minute.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Fiery Wrath",
+    "effect": "Resources you sacrifice burn +5% longer for every point of Impatience you have",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Firekeeper's Armor",
+    "effect": "Every burned Blightrot Cyst removes an additional 50 Corruption.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Firekeeper's Prayer",
+    "effect": "Glade Event work speed increased by 30%. Resources you Sacrifice in the Ancient Hearth burn 25% quicker.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Firelink Ritual",
+    "effect": "Every 5 villagers with the need for religion fulfilled reduces Hostility by -25.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Flame Amulets",
+    "effect": "Hostility from woodcutters is decreased by 12.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Force of Nature",
+    "effect": "Gain +1 to storm water production for every 2 Woodcutters in your Settlement",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Forge Trip Hammer",
+    "effect": "(★★★) Parts can be produced in the Smithy",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Frequent Caravans",
+    "effect": "Boosts Global Resolve by 3 for 60 seconds every time you finish a Trade Route (duration stacks).",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Frequent Patrols",
+    "effect": "Every Glade event solved by Loyalty lowers Hostility by 10 (The bonus is added retroactively)",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Friendly Relations",
+    "effect": "Boosts Global Resolve by 1 for every 3 levels of standing with other settlements in Trade Routes. (The bonus is added retroactively.)",
+    "rarity": "Epic"
+  },
+  {
+    "name": "From The Ashes",
+    "effect": "An odd talisman made from the talons of a phoenix. Gain 1 Wildfire Essence for every 2 completed Dangerous or Forbidden Glade Events. (except cloned events spawned by fishmen caves and blood flowers)",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Fungal Guide",
+    "effect": "Mushrooms production increases by +1 every 25 times it's produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Generous Gifts",
+    "effect": "Newcomers bring 40% more goods with them for every Hub level gained.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Generous Rations",
+    "effect": "Global Resolve is increased by 5, but the chance of a villager consuming twice the amount of food during a break is increased by 50%",
+    "rarity": "?"
+  },
+  {
+    "name": "Giant Vegetables",
+    "effect": "+2 to Vegetables Production.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Golden Marrow",
+    "effect": "Gain 2 Amber for every 20 Sea Marrow produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Grain Bags",
+    "effect": "Grain production increases by +1 every 25 times it's produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Grain Delivery Line",
+    "effect": "3 Grain per minute.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Guild Catalogue",
+    "effect": "Traders will have 1 more Cornerstone for sale.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Hidden from the Queen",
+    "effect": "Impatience doesn't grow when villagers leave or die.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Hidden Reward",
+    "effect": "Gain 1 Ancient Tablet for every 2 Glade Events. (The bonus is added retroactively.)",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Hunter–Gatherers",
+    "effect": "All Camp production is increased by 50%, but all Buildings that use Fertile Soil have their yields decreased by 50%. Bonus does not affect the Woodcutters' Camp.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Improvised Tools",
+    "effect": "Discovering a Glade grants 5 Simple Tools, at a cost of -5 to Woodcutters' Resolve.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Industrialized Agriculture",
+    "effect": "+50% to the amount of goods produced in the Forester's Hut.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Large Baskets",
+    "effect": "+50% to the amount of goods produced in the Plantation",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Leather Gloves",
+    "effect": "+2 to Reed production. Gain additional Reed every yield (from gathering, farming, or production).",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Leftover Crops",
+    "effect": "Gain 1 Pack of Provisions for every 10 Herbs produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Local Taxes",
+    "effect": "Gain 20 Amber for every 100 Ale produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Lost in the Wilds",
+    "effect": "Gain one Villager every time you discover a new Glade.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Lost Supplies",
+    "effect": "Gain 40 Meat and 40 Grain for each completed Dangerous or Forbidden Glade Event.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Lumber Tax",
+    "effect": "Gain 1 Amber for every 50 Wood produced.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Meat Specialization",
+    "effect": "Meat production increases by +1 every 25 times it's produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Metallurgic Proficiency",
+    "effect": "All Recipes that use metal or ore will be produced +33% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Mist Piercers",
+    "effect": "The content of Glades will be revealed, but each discovered Glade increases the Queen's Impatience by 0.5.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Moldy Grain Seeds",
+    "effect": "Gain 3 Mushrooms for every 10 Grain produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Moss Broccoli Seeds",
+    "effect": "Vegetables (★★) can now be produced in the Greenhouse.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Mushroom Seedlings",
+    "effect": "All Farms can plant Mushrooms (★★) on Farm Fields during Drizzle Season.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "No Quality Control",
+    "effect": "Gain +2 to Wood production. After each storm you lose all wood and gain 50 insects.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Old Fedora Hat",
+    "effect": "Increases the chances of bringing twice as much back from Glade Events by 50%.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Over-Diligent Woodworkers",
+    "effect": "Gain 3 Barrels for every 10 Planks produced.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Overexploitation",
+    "effect": "Newly discovered small resource nodes have +5 charges, and newly discovered large resource nodes have +20. You gain +10 hostility.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Peasant Supplies",
+    "effect": "Receive 3 Pack of Provisions for every new Villager.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Prayer Book",
+    "effect": "Scouts work 10% faster on Glade Events for every Firekeeper assigned to a Hearth.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Prosperous Archaeology",
+    "effect": "Gain a stack of the Wealth Effect (+1 to Global Resolve) for every 2 Caches opened.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Prosperous Settlement",
+    "effect": "Gain a stack of the Wealth Effect (+1 to Global Resolve) each time you sell goods worth 40 Amber.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Protected Trade",
+    "effect": "Hostility is reduced by -15 points every time you sell (Trade) goods worth 25 Amber.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Queen's Gift",
+    "effect": "Increases the Ancient Hearth's resistance by +250 for every woodcutter in your settlement.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Rain Pumps",
+    "effect": "Brewery production is 50% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Rebellious Spirit",
+    "effect": "Gain +1 Global Resolve for every 2 Impatience Points.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Reinforced Axes",
+    "effect": "Woodcutters' Camp production is 40% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Reinforced Tools",
+    "effect": "+50% to amount of goods produced in the Small Farm.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Religious Settlement",
+    "effect": "Gain +1 to Human Resolve for every 70 Incense produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Rich Glades",
+    "effect": "Newly discovered small deposits have +5 charges, newly discovered large deposits have +20",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Root Delivery Line",
+    "effect": "3 Roots per minute.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Rooty Ground",
+    "effect": "Wood production is increased by +1, but harvesting and planting are 25% slower.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Royal Guard Training",
+    "effect": "Brawling grants an additional +2 resolve, but attacking a Trader results in 2 extra Impatience.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Safe Haven",
+    "effect": "-40 to Hostility for every Hub upgraded to level Neighborhood (or higher).",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Sahilda's Secret Cookbook",
+    "effect": "Gain 10 Jerky for every 10 Pie produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Salted Jerky",
+    "effect": "+5 to Jerkly production. Grain additional Jerky every yield (from gathering, farming, or production).",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Secure Trail",
+    "effect": "Newcomers will arrive +25% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Sharp Sickles",
+    "effect": "+2 to Herbs production. Gain additional Herbs every yield (from gathering, farming, or production).",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Silent Looting",
+    "effect": "Every opened Cache lowers Hostility by -15 points.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Small Distillery",
+    "effect": "Gain 4 Crystalized Dew for every 20 Resin produced.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Small Press",
+    "effect": "Gain 3 Oil for every 10 Flour produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Smuggler's Visit",
+    "effect": "You may choose one Blueprint from all unlocked Blueprints.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Spices",
+    "effect": "Herbs and Roots production is increased by +1 for every 75 Biscuits produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Steel Mattocks",
+    "effect": "Stone (★★) can now be produced in the Clay Pit",
+    "rarity": "?"
+  },
+  {
+    "name": "Steel Pickaxes",
+    "effect": "+2 Stone production.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Stormwalker Training",
+    "effect": "All Trade Routes are faster by 40%.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Surprise Child",
+    "effect": "Gain 1 Lizard Villager for every 25 Eggs produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Survivor Bonding",
+    "effect": "+10% villager speed, +1 Global Resolve",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Tanning Racks",
+    "effect": "+2 to Leather production. Gain additional Leather every yield (from gathering, farming, or production).",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Tightened Belt",
+    "effect": "Travel cost on trade routes is reduced by 1",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Trade Hub",
+    "effect": "Gain 1 Reputation Point every time you sell goods worth 60 Amber, while slowing Reputation gained from Resolve by -50%.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Trade Logs",
+    "effect": "Gain 1 additional active trade route slot. Traders will arrive +25% quicker.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Trade Negotiations",
+    "effect": "Trade routes are worth 1 more Amber",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Training Grounds",
+    "effect": "Gain +1 to Lizard Resolve for every 70 Training Gear produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Urban Planning",
+    "effect": "For every 10 completed Trade Routes, all Houses will have room for one more Villager, but construction is 25% slower.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Value Added Tax",
+    "effect": "Gain 2 Amber for every 6 Pack of Trade Goods produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Vineyard Town",
+    "effect": "Gain +1 to Beaver Resolve for every 70 Wine produced.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Well-Rested Workers",
+    "effect": "Villagers with the Leisure need fulfilled have a +10% chance of doubling their yields.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Without Restrictions",
+    "effect": "Villagers have a +10% chance of receiving bonus yields from production, but Consumption Control is disabled.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Woodcutter's Prayer",
+    "effect": "+1 to Wood production. Lose all stored Fuel upon picking this Cornerstone.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Woodcutter's Song",
+    "effect": "It's off to work we go. For every 20 felled trees, Global Resolve is increased by 3 for 120 seconds.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Woodpecker Technique",
+    "effect": "Gain 1 Insect every time Woodcutters cut down 2 trees during the storm.",
+    "rarity": "Epic"
+  },
+  {
+    "name": "Work Safety Guide",
+    "effect": "Every 5 Villagers with the need for Education fulfilled will increase global production speed by 25%.",
+    "rarity": "Legendary"
+  },
+  {
+    "name": "Worker's Rations",
+    "effect": "Workers have a +10% higher chance of doubling their production, but also a +20% higher chance of consuming twice as much food during a break.",
+    "rarity": "?"
+  },
+  {
+    "name": "Zhorg's Secret Ingredient",
+    "effect": "Gain 10 Skewers for every 10 Pickled Goods produced",
+    "rarity": "Epic"
+  }
+]

@@ -1,0 +1,496 @@
+{
+  "Brickyard": [
+    {
+      "product": "Bricks",
+      "output_amount": 1,
+      "building": "Brickyard",
+      "rating": "★★★",
+      "duration_seconds": 24,
+      "inputs": {
+        "Stone": 3,
+        "Clay": 3
+      }
+    },
+    {
+      "product": "Crystallized Dew",
+      "output_amount": 1,
+      "building": "Brickyard",
+      "rating": "",
+      "duration_seconds": 24,
+      "inputs": {
+        "Sparkdew": 5,
+        "Incense": 2,
+        "Insects": 2,
+        "Herbs": 2,
+        "Oil": 2
+      }
+    },
+    {
+      "product": "Pottery",
+      "output_amount": 1,
+      "building": "Brickyard",
+      "rating": "",
+      "duration_seconds": 48,
+      "inputs": {
+        "Clay": 3,
+        "Sea Marrow": 1,
+        "Coal": 1,
+        "Wood": 5,
+        "Oil": 2
+      }
+    }
+  ],
+  "Crude Workstation": [
+    {
+      "product": "Bricks",
+      "output_amount": 1,
+      "building": "Crude Workstation",
+      "rating": "★",
+      "duration_seconds": 32,
+      "inputs": {
+        "Stone": 6,
+        "Clay": 6
+      }
+    },
+    {
+      "product": "Fabric",
+      "output_amount": 1,
+      "building": "Crude Workstation",
+      "rating": "★",
+      "duration_seconds": 32,
+      "inputs": {
+        "Plant Fiber": 6,
+        "Leather": 6,
+        "Reed": 6
+      }
+    },
+    {
+      "product": "Planks",
+      "output_amount": 1,
+      "building": "Crude Workstation",
+      "rating": "★",
+      "duration_seconds": 32,
+      "inputs": {
+        "Wood": 8
+      }
+    }
+  ],
+  "Carpenter": [
+    {
+      "product": "Pack of Luxury Goods",
+      "output_amount": 1,
+      "building": "Carpenter",
+      "rating": "★★",
+      "duration_seconds": 24,
+      "inputs": {
+        "Training Gear": 4,
+        "Cosmetics": 4,
+        "Incense": 4,
+        "Scrolls": 4,
+        "Wine": 4,
+        "Ale": 4
+      }
+    },
+    {
+      "product": "Planks",
+      "output_amount": 1,
+      "building": "Carpenter",
+      "rating": "★★",
+      "duration_seconds": 24,
+      "inputs": {
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Simple Tools",
+      "output_amount": 1,
+      "building": "Carpenter",
+      "rating": "★★",
+      "duration_seconds": 56,
+      "inputs": {
+        "Planks": 2,
+        "Wood": 8,
+        "Crystalized Dew": 3
+      }
+    }
+  ],
+  "Bakery": [
+    {
+      "product": "Biscuits",
+      "output_amount": 10,
+      "building": "Bakery",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Flour": 8,
+        "Herbs": 3
+      }
+    },
+    {
+      "product": "Pie",
+      "output_amount": 10,
+      "building": "Bakery",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Flour": 6,
+        "Herbs": 4
+      }
+    },
+    {
+      "product": "Pottery",
+      "output_amount": 5,
+      "building": "Bakery",
+      "rating": "★★",
+      "duration_seconds": 84,
+      "inputs": {
+        "Clay": 3,
+        "Wood": 5
+      }
+    }
+  ],
+  "Brewery": [
+    {
+      "product": "Pickled Goods",
+      "output_amount": 10,
+      "building": "Brewery",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Vegetables": 6,
+        "Pottery": 3
+      }
+    },
+    {
+      "product": "Pack of Crops",
+      "output_amount": 2,
+      "building": "Brewery",
+      "rating": "★",
+      "duration_seconds": 42,
+      "inputs": {
+        "Roots": 5
+      }
+    },
+    {
+      "product": "Ale",
+      "output_amount": 10,
+      "building": "Brewery",
+      "rating": "★★★",
+      "duration_seconds": 105,
+      "inputs": {
+        "Grain": 4,
+        "Pottery": 2
+      }
+    }
+  ],
+  "Brick Oven": [
+    {
+      "product": "Coal",
+      "output_amount": 3,
+      "building": "Brick Oven",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Wood": 15
+      }
+    },
+    {
+      "product": "Incense",
+      "output_amount": 10,
+      "building": "Brick Oven",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Herbs": 6,
+        "Wood": 6
+      }
+    },
+    {
+      "product": "Pie",
+      "output_amount": 10,
+      "building": "Brick Oven",
+      "rating": "★★★",
+      "duration_seconds": 105,
+      "inputs": {
+        "Flour": 6,
+        "Herbs": 3
+      }
+    }
+  ],
+  "Butcher": [
+    {
+      "product": "Skewers",
+      "output_amount": 10,
+      "building": "Butcher",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Insects": 4,
+        "Vegetables": 4
+      }
+    },
+    {
+      "product": "Jerky",
+      "output_amount": 10,
+      "building": "Butcher",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Insects": 5,
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Oil",
+      "output_amount": 5,
+      "building": "Butcher",
+      "rating": "★★",
+      "duration_seconds": 84,
+      "inputs": {
+        "Grain": 3
+      }
+    }
+  ],
+  "Cellar": [
+    {
+      "product": "Pickled Goods",
+      "output_amount": 10,
+      "building": "Cellar",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Vegetables": 6,
+        "Pottery": 3
+      }
+    },
+    {
+      "product": "Jerky",
+      "output_amount": 10,
+      "building": "Cellar",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Insects": 6,
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Wine",
+      "output_amount": 10,
+      "building": "Cellar",
+      "rating": "★★★",
+      "duration_seconds": 63,
+      "inputs": {
+        "Berries": 2,
+        "Pottery": 2
+      }
+    }
+  ],
+  "Cookhouse": [
+    {
+      "product": "Skewers",
+      "output_amount": 10,
+      "building": "Cookhouse",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Insects": 4,
+        "Vegetables": 4
+      }
+    },
+    {
+      "product": "Biscuits",
+      "output_amount": 10,
+      "building": "Cookhouse",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Flour": 8,
+        "Herbs": 3
+      }
+    },
+    {
+      "product": "Pigment",
+      "output_amount": 10,
+      "building": "Cookhouse",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Insects": 4
+      }
+    }
+  ],
+  "Distillery": [
+    {
+      "product": "Wine",
+      "output_amount": 10,
+      "building": "Distillery",
+      "rating": "★★",
+      "duration_seconds": 84,
+      "inputs": {
+        "Berries": 3,
+        "Pottery": 3
+      }
+    },
+    {
+      "product": "Porridge",
+      "output_amount": 10,
+      "building": "Distillery",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Grain": 5,
+        "Drizzle Water Clearance Water Storm Water": 7
+      }
+    },
+    {
+      "product": "Barrels",
+      "output_amount": 10,
+      "building": "Distillery",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Copper Bars Crystalized Dew": 2,
+        "Planks": 2
+      }
+    }
+  ],
+  "Field Kitchen": [
+    {
+      "product": "Jerky",
+      "output_amount": 10,
+      "building": "Field Kitchen",
+      "rating": "☆",
+      "duration_seconds": 90,
+      "inputs": {
+        "Insects": 8,
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Biscuits",
+      "output_amount": 10,
+      "building": "Field Kitchen",
+      "rating": "☆",
+      "duration_seconds": 90,
+      "inputs": {
+        "Flour": 10,
+        "Herbs": 4
+      }
+    },
+    {
+      "product": "Pickled Goods",
+      "output_amount": 10,
+      "building": "Field Kitchen",
+      "rating": "☆",
+      "duration_seconds": 90,
+      "inputs": {
+        "Vegetables": 7,
+        "Pottery": 3
+      }
+    }
+  ],
+  "Granary": [
+    {
+      "product": "Pack of Crops",
+      "output_amount": 2,
+      "building": "Granary",
+      "rating": "★★",
+      "duration_seconds": 42,
+      "inputs": {
+        "Roots": 4
+      }
+    },
+    {
+      "product": "Pickled Goods",
+      "output_amount": 10,
+      "building": "Granary",
+      "rating": "★★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Vegetables": 5,
+        "Pottery": 3
+      }
+    },
+    {
+      "product": "Fabric",
+      "output_amount": 2,
+      "building": "Granary",
+      "rating": "★★",
+      "duration_seconds": 42,
+      "inputs": {
+        "Plant Fiber": 3
+      }
+    }
+  ],
+  "Grill": [
+    {
+      "product": "Copper Bars",
+      "output_amount": 2,
+      "building": "Grill",
+      "rating": "★",
+      "duration_seconds": 42,
+      "inputs": {
+        "Copper Ore": 6,
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Ale",
+      "output_amount": 10,
+      "building": "Grill",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Grain": 6,
+        "Pottery": 3
+      }
+    },
+    {
+      "product": "Skewers",
+      "output_amount": 10,
+      "building": "Grill",
+      "rating": "★★★",
+      "duration_seconds": 105,
+      "inputs": {
+        "Insects": 3,
+        "Vegetables": 3
+      }
+    }
+  ],
+  "Smokehouse": [
+    {
+      "product": "Pottery",
+      "output_amount": 5,
+      "building": "Smokehouse",
+      "rating": "★",
+      "duration_seconds": 84,
+      "inputs": {
+        "Clay": 4,
+        "Wood": 5
+      }
+    },
+    {
+      "product": "Incense",
+      "output_amount": 10,
+      "building": "Smokehouse",
+      "rating": "★",
+      "duration_seconds": 126,
+      "inputs": {
+        "Herbs": 6,
+        "Wood": 6
+      }
+    },
+    {
+      "product": "Jerky",
+      "output_amount": 10,
+      "building": "Smokehouse",
+      "rating": "★★★",
+      "duration_seconds": 105,
+      "inputs": {
+        "Insects": 4,
+        "Wood": 5
+      }
+    }
+  ]
+}

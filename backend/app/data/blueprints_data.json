@@ -1,0 +1,599 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-12",
+  "blueprints": [
+    {
+      "name": "农场",
+      "name_en": "Farm",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 5,
+        "石料": 3
+      },
+      "outputs": {
+        "食物": 10
+      },
+      "values": {
+        "food": 4,
+        "fuel": 2,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类", "精灵"],
+        "biome_bonuses": {
+          "平原": 1.2,
+          "森林": 1.1
+        }
+      },
+      "description": "基础食物生产建筑，适合人类和精灵种族"
+    },
+    {
+      "name": "矿场",
+      "name_en": "Mine",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 8
+      },
+      "outputs": {
+        "石料": 15,
+        "矿石": 5
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 2
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["矮人"],
+        "biome_bonuses": {
+          "山地": 1.5
+        }
+      },
+      "description": "石料和矿石生产建筑，矮人种族擅长"
+    },
+    {
+      "name": "伐木场",
+      "name_en": "Lumber Mill",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {},
+      "outputs": {
+        "木材": 20
+      },
+      "values": {
+        "food": 0,
+        "fuel": 4,
+        "resolve": 0
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": ["人类", "精灵"],
+        "biome_bonuses": {
+          "森林": 1.3
+        }
+      },
+      "description": "基础木材生产建筑，最简单的生产链"
+    },
+    {
+      "name": "窑",
+      "name_en": "Kiln",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 3,
+        "黏土": 2
+      },
+      "outputs": {
+        "砖块": 5,
+        "煤炭": 3
+      },
+      "values": {
+        "food": 0,
+        "fuel": 5,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["蜥蜴人"],
+        "biome_bonuses": {
+          "沙漠": 1.2
+        }
+      },
+      "description": "燃料生产建筑，蜥蜴人偏好"
+    },
+    {
+      "name": "面包房",
+      "name_en": "Bakery",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "谷物": 5,
+        "木材": 2
+      },
+      "outputs": {
+        "面包": 8
+      },
+      "values": {
+        "food": 5,
+        "fuel": 1,
+        "resolve": 2
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类"],
+        "biome_bonuses": {
+          "平原": 1.1
+        }
+      },
+      "description": "高级食物生产，提供决心值"
+    },
+    {
+      "name": "铁匠铺",
+      "name_en": "Smithy",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "矿石": 10,
+        "煤炭": 5
+      },
+      "outputs": {
+        "工具": 3,
+        "武器": 2
+      },
+      "values": {
+        "food": 0,
+        "fuel": 2,
+        "resolve": 3
+      },
+      "complexity": 4,
+      "synergy": {
+        "species_preferences": ["矮人"],
+        "biome_bonuses": {
+          "山地": 1.2
+        }
+      },
+      "description": "复杂的工具和武器生产"
+    },
+    {
+      "name": "酒馆",
+      "name_en": "Tavern",
+      "type": "服务建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "食物": 5,
+        "木材": 3
+      },
+      "outputs": {},
+      "values": {
+        "food": 1,
+        "fuel": 0,
+        "resolve": 5
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类", "矮人"],
+        "biome_bonuses": {}
+      },
+      "description": "提供高决心值的服务建筑"
+    },
+    {
+      "name": "神殿",
+      "name_en": "Temple",
+      "type": "服务建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "石料": 15,
+        "木材": 10
+      },
+      "outputs": {},
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 5
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["精灵"],
+        "biome_bonuses": {
+          "森林": 1.3
+        }
+      },
+      "description": "精灵种族的高级服务建筑"
+    },
+    {
+      "name": "工坊",
+      "name_en": "Workshop",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 10,
+        "石料": 5
+      },
+      "outputs": {
+        "工具": 5
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 3
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["人类", "矮人"],
+        "biome_bonuses": {}
+      },
+      "description": "工具生产建筑"
+    },
+    {
+      "name": "药剂铺",
+      "name_en": "Apothecary",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "草药": 8,
+        "木材": 3
+      },
+      "outputs": {
+        "药剂": 5
+      },
+      "values": {
+        "food": 1,
+        "fuel": 0,
+        "resolve": 4
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["精灵"],
+        "biome_bonuses": {
+          "森林": 1.4
+        }
+      },
+      "description": "精灵擅长的药剂生产"
+    },
+    {
+      "name": "伐木场",
+      "name_en": "Lumber Mill",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {},
+      "outputs": {
+        "木材": 20
+      },
+      "values": {
+        "food": 0,
+        "fuel": 4,
+        "resolve": 0
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": ["人类", "精灵"],
+        "biome_bonuses": {
+          "森林": 1.3
+        }
+      },
+      "description": "基础木材生产建筑，最简单的生产链"
+    },
+    {
+      "name": "渔场",
+      "name_en": "Fishery",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {},
+      "outputs": {
+        "鱼": 15
+      },
+      "values": {
+        "food": 5,
+        "fuel": 0,
+        "resolve": 0
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": ["人类", "蜥蜴人"],
+        "biome_bonuses": {
+          "河流": 1.5
+        }
+      },
+      "description": "水域食物生产，简单高效"
+    },
+    {
+      "name": "狩猎小屋",
+      "name_en": "Hunting Lodge",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 3
+      },
+      "outputs": {
+        "肉": 12,
+        "皮革": 5
+      },
+      "values": {
+        "food": 4,
+        "fuel": 1,
+        "resolve": 0
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类", "兽人"],
+        "biome_bonuses": {
+          "森林": 1.2
+        }
+      },
+      "description": "森林食物和材料生产"
+    },
+    {
+      "name": "磨坊",
+      "name_en": "Mill",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "谷物": 10
+      },
+      "outputs": {
+        "面粉": 15
+      },
+      "values": {
+        "food": 3,
+        "fuel": 0,
+        "resolve": 1
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类"],
+        "biome_bonuses": {
+          "平原": 1.1
+        }
+      },
+      "description": "谷物加工建筑"
+    },
+    {
+      "name": "炼金工坊",
+      "name_en": "Alchemy Workshop",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "草药": 10,
+        "矿石": 5
+      },
+      "outputs": {
+        "药剂": 8,
+        "魔法精华": 3
+      },
+      "values": {
+        "food": 0,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 4,
+      "synergy": {
+        "species_preferences": ["精灵"],
+        "biome_bonuses": {
+          "森林": 1.3
+        }
+      },
+      "description": "高级炼金生产，精灵专长"
+    },
+    {
+      "name": "锻造厂",
+      "name_en": "Forge",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "矿石": 15,
+        "煤炭": 8
+      },
+      "outputs": {
+        "金属锭": 10,
+        "工具": 5
+      },
+      "values": {
+        "food": 0,
+        "fuel": 3,
+        "resolve": 3
+      },
+      "complexity": 4,
+      "synergy": {
+        "species_preferences": ["矮人"],
+        "biome_bonuses": {
+          "山地": 1.4
+        }
+      },
+      "description": "金属加工，矮人的拿手好戏"
+    },
+    {
+      "name": "图书馆",
+      "name_en": "Library",
+      "type": "服务建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 10,
+        "纸张": 5
+      },
+      "outputs": {},
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 5
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["精灵", "人类"],
+        "biome_bonuses": {}
+      },
+      "description": "知识中心，提供高决心值"
+    },
+    {
+      "name": "训练场",
+      "name_en": "Training Ground",
+      "type": "军事建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 15,
+        "石料": 10
+      },
+      "outputs": {},
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 4
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["人类", "兽人"],
+        "biome_bonuses": {}
+      },
+      "description": "军事训练设施"
+    },
+    {
+      "name": "市场",
+      "name_en": "Market",
+      "type": "服务建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 8,
+        "石料": 5
+      },
+      "outputs": {},
+      "values": {
+        "food": 2,
+        "fuel": 1,
+        "resolve": 4
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类"],
+        "biome_bonuses": {}
+      },
+      "description": "贸易中心，提供多种价值"
+    },
+    {
+      "name": "兵营",
+      "name_en": "Barracks",
+      "type": "军事建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 20,
+        "石料": 15,
+        "金属锭": 5
+      },
+      "outputs": {},
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 3
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["人类", "矮人", "兽人"],
+        "biome_bonuses": {}
+      },
+      "description": "军队驻扎地"
+    },
+    {
+      "name": "采石场",
+      "name_en": "Quarry",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 5
+      },
+      "outputs": {
+        "石料": 20
+      },
+      "values": {
+        "food": 0,
+        "fuel": 2,
+        "resolve": 0
+      },
+      "complexity": 1,
+      "synergy": {
+        "species_preferences": ["矮人", "人类"],
+        "biome_bonuses": {
+          "山地": 1.3
+        }
+      },
+      "description": "基础石料生产"
+    },
+    {
+      "name": "织布坊",
+      "name_en": "Weaver",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "羊毛": 8,
+        "木材": 3
+      },
+      "outputs": {
+        "布料": 10
+      },
+      "values": {
+        "food": 0,
+        "fuel": 0,
+        "resolve": 3
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类", "精灵"],
+        "biome_bonuses": {}
+      },
+      "description": "纺织品生产"
+    },
+    {
+      "name": "陶器作坊",
+      "name_en": "Pottery",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "黏土": 10,
+        "木材": 5
+      },
+      "outputs": {
+        "陶器": 12
+      },
+      "values": {
+        "food": 1,
+        "fuel": 2,
+        "resolve": 2
+      },
+      "complexity": 2,
+      "synergy": {
+        "species_preferences": ["人类", "蜥蜴人"],
+        "biome_bonuses": {}
+      },
+      "description": "陶器制作"
+    },
+    {
+      "name": "牧场",
+      "name_en": "Ranch",
+      "type": "生产建筑",
+      "dlc": "基础版",
+      "inputs": {
+        "木材": 10,
+        "草料": 5
+      },
+      "outputs": {
+        "肉": 8,
+        "皮革": 6,
+        "羊毛": 4
+      },
+      "values": {
+        "food": 3,
+        "fuel": 1,
+        "resolve": 1
+      },
+      "complexity": 3,
+      "synergy": {
+        "species_preferences": ["人类"],
+        "biome_bonuses": {
+          "平原": 1.2
+        }
+      },
+      "description": "畜牧业综合生产"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "species": [
+    {
+      "name": "Beaver",
+      "Base Resolve": "10",
+      "Break Interval": "2:00",
+      "Resilience": "Low",
+      "Demanding": "High (30)",
+      "Decadence": "Low (+2)",
+      "Hunger Tolerance": "6"
+    },
+    {
+      "name": "Harpy",
+      "Base Resolve": "5",
+      "Break Interval": "1:40",
+      "Resilience": "Low",
+      "Demanding": "Medium (15)",
+      "Decadence": "Low (+3)",
+      "Hunger Tolerance": "4"
+    },
+    {
+      "name": "Human",
+      "Base Resolve": "15",
+      "Break Interval": "2:00",
+      "Resilience": "Low",
+      "Demanding": "High (30)",
+      "Decadence": "Medium (+4)",
+      "Hunger Tolerance": "6"
+    },
+    {
+      "name": "Lizard",
+      "Base Resolve": "5",
+      "Break Interval": "1:40",
+      "Resilience": "High",
+      "Demanding": "Medium (15)",
+      "Decadence": "High (+7)",
+      "Hunger Tolerance": "12"
+    },
+    {
+      "name": "Fox",
+      "Base Resolve": "5",
+      "Break Interval": "2:00",
+      "Resilience": "Low",
+      "Demanding": "Medium (15)",
+      "Decadence": "Medium (+5)",
+      "Hunger Tolerance": "3"
+    }
+  ],
+  "needs": [
+    {
+      "need": "Jerky",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Skewers",
+      "species_values": {
+        "": "5"
+      }
+    },
+    {
+      "need": "Biscuits",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Pie",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Pickled Goods",
+      "species_values": {
+        "": "8"
+      }
+    },
+    {
+      "need": "Porridge",
+      "species_values": {
+        "": "4"
+      }
+    },
+    {
+      "need": "Clothing",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Leisure",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Brawling",
+      "species_values": {
+        "": "8"
+      }
+    },
+    {
+      "need": "Religion",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Education",
+      "species_values": {
+        "": "0"
+      }
+    },
+    {
+      "need": "Luxury",
+      "species_values": {
+        "": "10"
+      }
+    },
+    {
+      "need": "Treatment",
+      "species_values": {
+        "": "10"
+      }
+    }
+  ]
+}
