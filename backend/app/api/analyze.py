@@ -17,6 +17,7 @@ from app.database import get_db
 from app.models import Box, GameState, AnalysisRecord
 from app.services.recommendation_engine import RecommendationEngine
 from app.services.history_service import HistoryService
+from app.strategies import StrategyType, EventType, get_all_strategies, get_all_events
 
 router = APIRouter()
 
@@ -53,6 +54,22 @@ class AnalyzeRequest(BaseModel):
         return v
 
 
+@router.get("/api/v1/strategies")
+async def get_strategies():
+    """Get all available strategies for recommendation"""
+    return {
+        "strategies": get_all_strategies()
+    }
+
+
+@router.get("/api/v1/events")
+async def get_events():
+    """Get all available events for recommendation"""
+    return {
+        "events": get_all_events()
+    }
+
+
 @router.post("/api/v1/analyze")
 async def analyze_screenshot(
     request: Request,
@@ -60,6 +77,8 @@ async def analyze_screenshot(
     boxes: str = Form(...),
     session_id: Optional[str] = Form(None),
     lang: Optional[str] = Form("en"),
+    strategy: Optional[str] = Form(None),
+    event: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -123,7 +142,7 @@ async def analyze_screenshot(
             names = list(blueprint_loader.blueprints.keys())
             slug_to_name = {_slug(n): n for n in names}
             fallback_bps = names[:3] if len(names) >= 3 else names
-            fallback_res = {"Wood": 25, "Planks": 15, "Stone": 10}
+            fallback_res = {"木材": 25, "石料": 15, "食物": 30}
             if names:
                 first_bp = blueprint_loader.blueprints[names[0]]
                 if getattr(first_bp, "inputs", None):
@@ -158,7 +177,7 @@ async def analyze_screenshot(
             from app.main import blueprint_loader
             names = list(blueprint_loader.blueprints.keys())
             fallback_bps = names[:3] if len(names) >= 3 else names
-            fallback_res = {"Wood": 25, "Planks": 15, "Stone": 10}
+            fallback_res = {"木材": 25, "石料": 15, "食物": 30}
             if names:
                 first_bp = blueprint_loader.blueprints[names[0]]
                 if getattr(first_bp, "inputs", None):
@@ -178,12 +197,30 @@ async def analyze_screenshot(
                 detail="蓝图数据未加载"
             )
         
+        # Parse strategy and event
+        strategy_type = None
+        event_type = None
+        
+        if strategy:
+            try:
+                strategy_type = StrategyType(strategy.lower())
+            except ValueError:
+                pass  # Invalid strategy, use default
+        
+        if event:
+            try:
+                event_type = EventType(event.lower())
+            except ValueError:
+                pass  # Invalid event, use default
+        
         engine = RecommendationEngine(blueprint_loader.blueprints)
         recommendations = engine.generate_recommendations(
             game_state,
             game_state.available_blueprints,
             top_k=5,
-            response_lang=response_lang
+            response_lang=response_lang,
+            strategy=strategy_type,
+            event=event_type
         )
         
         # Save to history
@@ -217,6 +254,8 @@ async def analyze_screenshot(
                     "score": rec.score,
                     "rank": rec.rank,
                     "reasoning": rec.reasoning,
+                    "buildable": rec.buildable,
+                    "missing_resources": rec.missing_resources,
                     "details": {
                         "name": rec.details.name,
                         "name_en": rec.details.name_en,

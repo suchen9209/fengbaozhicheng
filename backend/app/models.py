@@ -60,6 +60,40 @@ class GameState:
     resources: Dict[str, int]
     species: str
     confidence: Dict[str, float] = field(default_factory=dict)
+    
+    def has_resources_for(self, blueprint: 'Blueprint') -> bool:
+        """
+        Check if current resources are sufficient to build the blueprint
+        
+        Args:
+            blueprint: Blueprint to check
+            
+        Returns:
+            True if all required resources are available in sufficient quantity
+        """
+        for resource_name, required_amount in blueprint.inputs.items():
+            available = self.resources.get(resource_name, 0)
+            if available < required_amount:
+                return False
+        return True
+    
+    def get_missing_resources(self, blueprint: 'Blueprint') -> Dict[str, Dict[str, int]]:
+        """
+        Get details of missing resources for a blueprint
+        
+        Returns:
+            Dict mapping resource name to {required, available, missing}
+        """
+        missing = {}
+        for resource_name, required_amount in blueprint.inputs.items():
+            available = self.resources.get(resource_name, 0)
+            if available < required_amount:
+                missing[resource_name] = {
+                    'required': required_amount,
+                    'available': available,
+                    'missing': required_amount - available
+                }
+        return missing
 
 
 @dataclass
@@ -70,6 +104,8 @@ class Recommendation:
     rank: int
     reasoning: str
     details: Blueprint
+    buildable: bool = False
+    missing_resources: Dict[str, Dict[str, int]] = field(default_factory=dict)
 
 
 @dataclass

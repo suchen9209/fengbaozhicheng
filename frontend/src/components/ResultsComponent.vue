@@ -53,6 +53,14 @@
               <el-tag :type="getScoreTagType(rec.score)" size="large">
                 {{ rec.score }} 分
               </el-tag>
+              <el-tag
+                :type="rec.buildable ? 'success' : 'danger'"
+                size="small"
+                effect="dark"
+                class="buildable-tag"
+              >
+                {{ rec.buildable ? '✅ 可建造' : '❌ 资源不足' }}
+              </el-tag>
             </div>
             <el-button
               text
@@ -92,14 +100,31 @@
 
               <div class="io-section">
                 <div class="io-group">
-                  <h5>输入</h5>
-                  <el-tag
+                  <h5>输入需求</h5>
+                  <div
                     v-for="(amount, item) in rec.details.inputs"
                     :key="item"
-                    size="small"
+                    class="resource-requirement"
                   >
-                    {{ item }}: {{ amount }}
-                  </el-tag>
+                    <el-tag
+                      size="small"
+                      :type="getResourceTagType(item, amount, rec.missing_resources)"
+                    >
+                      {{ item }}: {{ amount }}
+                    </el-tag>
+                    <span
+                      v-if="rec.missing_resources[item]"
+                      class="resource-shortage"
+                    >
+                      (缺 {{ rec.missing_resources[item].missing }})
+                    </span>
+                    <span
+                      v-else-if="gameState?.resources[item] !== undefined"
+                      class="resource-sufficient"
+                    >
+                      (有 {{ gameState.resources[item] }})
+                    </span>
+                  </div>
                   <span v-if="Object.keys(rec.details.inputs).length === 0" class="empty-text">
                     无需输入
                   </span>
@@ -187,12 +212,20 @@ interface BlueprintDetails {
   description: string
 }
 
+interface MissingResource {
+  required: number
+  available: number
+  missing: number
+}
+
 interface Recommendation {
   blueprint_name: string
   score: number
   rank: number
   reasoning: string
   details: BlueprintDetails
+  buildable: boolean
+  missing_resources: Record<string, MissingResource>
 }
 
 interface Props {
@@ -224,6 +257,20 @@ const getScoreColor = (score: number): string => {
   if (score >= 80) return '#67c23a'
   if (score >= 50) return '#e6a23c'
   return '#909399'
+}
+
+const getResourceTagType = (
+  resourceName: string,
+  required: number,
+  missingResources: Record<string, MissingResource>
+): 'success' | 'danger' | '' => {
+  if (missingResources[resourceName]) {
+    return 'danger'
+  }
+  if (props.gameState?.resources[resourceName] >= required) {
+    return 'success'
+  }
+  return ''
 }
 
 defineExpose({
@@ -333,6 +380,27 @@ defineExpose({
   margin: 0;
   font-size: 18px;
   color: #303133;
+}
+
+.buildable-tag {
+  margin-left: 4px;
+}
+
+.resource-requirement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.resource-shortage {
+  color: #f56c6c;
+  font-size: 12px;
+}
+
+.resource-sufficient {
+  color: #67c23a;
+  font-size: 12px;
 }
 
 .rec-reasoning {

@@ -43,8 +43,15 @@ class ImageAnalysisService:
         self.template_matcher = template_matcher
         self.ocr_service = ocr_service
         self.slug_to_blueprint_name = slug_to_blueprint_name or {}
-        self.fallback_blueprints = fallback_blueprints or ["Woodcutters' Camp", "Bakery", "Tavern"]
-        self.fallback_resources = fallback_resources or {"Wood": 25, "Planks": 15, "Stone": 10}
+        self.fallback_blueprints = fallback_blueprints or ["伐木场", "面包房", "酒馆"]
+        # 使用中文资源名，与 blueprints_data.json 一致
+        self.fallback_resources = fallback_resources or {"木材": 25, "石料": 15, "食物": 30}
+        
+        # 常见资源名称列表（用于 OCR 后的文本匹配）
+        self.resource_names = ["木材", "石料", "食物", "水", "黏土", "谷物", "草料", 
+                              "矿石", "煤炭", "金属锭", "砖块", "陶器", "皮革", "羊毛",
+                              "布料", "工具", "武器", "药剂", "纸张", "鱼", "肉", 
+                              "面粉", "面包", "草药", "魔法精华"]
     
     def analyze_screenshot(
         self,
@@ -151,6 +158,10 @@ class ImageAnalysisService:
         """
         Extract resource inventory from image region
         
+        Uses a two-step approach:
+        1. Detect resource icon positions (if resource templates exist)
+        2. OCR to extract numbers from regions next to icons
+        
         Args:
             image: Image region containing resources
         
@@ -159,25 +170,53 @@ class ImageAnalysisService:
         """
         resources = {}
         
-        # Try OCR to extract numbers
-        if self.ocr_service.is_available():
-            # Split image into rows/columns for different resources
-            # This is a simplified approach
+        if not self.ocr_service.is_available():
+            logger.info("OCR not available, using fallback resources")
+            return dict(self.fallback_resources), 0.5
+        
+        try:
             height, width = image.shape[:2]
             
-            # Try to extract numbers from different regions
-            # 资源名与 fallback_resources 一致（ATS 用英文）
-            resource_names = list(self.fallback_resources.keys()) if self.fallback_resources else ["Wood", "Planks", "Stone"]
-            step = max(1, height // max(1, len(resource_names)))
-            regions = [
-                (resource_names[i], image[i * step:(i + 1) * step, :])
-                for i in range(min(len(resource_names), 3))
-            ]
+            # Strategy: Resources are typically displayed as [Icon] [Number] pairs
+            # We'll scan the image for numbers and associate them with nearby text/icons
+            
+            # Convert to grayscale for processing
+            if len(image.shape) == 3:
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            else:
+                gray = image.copy()
+            
+            # Method 1: Try to find number regions using contour detection
+            # Resources typically show numbers in consistent positions
+            numbers_found = self._extract_numbers_from_regions(gray)
+            
+            # If we found numbers, try to associate them with resource names
+            if numbers_found:
+                # For now, map found numbers to most common resources
+                # In a more advanced version, we'd detect resource icons
+                for i, (number, confidence) in enumerate(numbers_found[:len(self.fallback_resources)]):
+                    if i < len(self.fallback_resources):
+                        resource_name = list(self.fallback_resources.keys())[i]
+                        resources[resource_name] = number
+                
+                avg_confidence = sum(conf for _, conf in numbers_found[:len(resources)]) / len(resources) if resources else 0.5
+                return resources, avg_confidence
+            
+            # Method 2: Divide image into horizontal strips (for vertical resource lists)
+            min_resources = min(3, len(self.fallback_resources))
+            step = max(1, height // min_resources)
             
             total_confidence = 0.0
             successful_extractions = 0
             
-            for resource_name, region in regions:
+            for i, resource_name in enumerate(list(self.fallback_resources.keys())[:min_resources]):
+                y_start = i * step
+                y_end = min((i + 1) * step, height)
+                region = image[y_start:y_end, :]
+                
+                if region.size == 0:
+                    continue
+                
                 number = self.ocr_service.extract_number(region)
                 if number is not None:
                     resources[resource_name] = number
@@ -187,9 +226,47 @@ class ImageAnalysisService:
             if successful_extractions > 0:
                 avg_confidence = total_confidence / successful_extractions
                 return resources, avg_confidence
+            
+        except Exception as e:
+            logger.error(f"Resource extraction failed: {e}")
         
-        logger.info("OCR not available or failed, using fallback resources")
+        logger.info("Resource extraction failed, using fallback resources")
         return dict(self.fallback_resources), 0.5
+    
+    def _extract_numbers_from_regions(
+        self,
+        gray_image: np.ndarray
+    ) -> list[tuple[int, float]]:
+        """
+        Extract numbers from different regions of the image
+        
+        Args:
+            gray_image: Grayscale image
+            
+        Returns:
+            List of (number, confidence) tuples
+        """
+        numbers_found = []
+        height, width = gray_image.shape
+        
+        # Divide image into a grid and try OCR on each cell
+        rows, cols = 3, 2  # 3 rows, 2 columns (icon + number)
+        cell_h, cell_w = height // rows, width // cols
+        
+        for row in range(rows):
+            for col in range(cols):
+                y1, y2 = row * cell_h, min((row + 1) * cell_h, height)
+                x1, x2 = col * cell_w, min((col + 1) * cell_w, width)
+                
+                cell = gray_image[y1:y2, x1:x2]
+                if cell.size == 0:
+                    continue
+                
+                number = self.ocr_service.extract_number(cell)
+                if number is not None and 0 <= number <= 9999:  # Reasonable resource range
+                    numbers_found.append((number, 0.7))
+        
+        return numbers_found
     
     def _extract_species(
         self,

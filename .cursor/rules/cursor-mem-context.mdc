@@ -1,0 +1,114 @@
+---
+alwaysApply: true
+---
+
+# [fengbaozhicheng] Recent Context
+
+**Legend:** 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change | 🔵 discovery | ⚖️ decision
+
+**Context Index:** This compact index shows WHAT exists and retrieval COST.
+When you need full details, use cursor-mem MCP tools: `search` -> `timeline` -> `get_observations(ids=[...])`
+
+**Context Economics:**
+- Index: 30 observations (~680 index tokens)
+- Full content: ~13445 tokens (use MCP to fetch on-demand)
+- Savings: ~95% via progressive disclosure
+
+## Previously
+
+**Last session:** 阅读下整个项目。现在我已经在MVC阶段了，docker已经跑起来了，要怎么验证
+**Completed:** Modified 2 files: /Users/chensu/suchot/fengbaozhicheng/VERIFY.md, /Users/chensu/suchot/fengbaozhicheng/scripts/verify_docker.sh
+
+**Last actions:**
+- 🔵 #194 git push - cd /Users/chensu/suchot/fengbaozhicheng && git pus
+- 🔵 #193 git add - cd /Users/chensu/suchot/fengbaozhicheng && git add
+- 🔵 #192 git reset - cd /Users/chensu/suchot/fengbaozhicheng && git res
+- 🔵 #191 git reset - cd /Users/chensu/suchot/fengbaozhicheng && git res
+- 🔵 #190 Write - /Users/chensu/suchot/fengbaozhicheng/.gitignore
+
+### Feb 12, 2026
+
+**Session Summary**
+> **Request:** 阅读下整个项目。现在我已经在MVC阶段了，docker已经跑起来了，要怎么验证
+> **Investigated:** Tools used: Write (2x), chmod (1x)
+> **Learned:** Wrote file: /Users/chensu/suchot/fengbaozhicheng/VERIFY.md; Wrote file: /Users/chensu/suchot/fengbaozhicheng/scripts/verify_docker.sh; Executed command: chmod +x /Users/chensu/suchot/fengbaozhicheng/scripts/verify_docker.sh
+> **Completed:** Modified 2 files: /Users/chensu/suchot/fengbaozhicheng/VERIFY.md, /Users/chensu/suchot/fengbaozhicheng/scripts/verify_docker.sh
+> *2/12/2026, 2:31:31 PM*
+
+**General**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #194 | 3:48 PM | 🔵 | git push | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~21 |
+
+> **🔵 #194 git push** cd /Users/chensu/suchot/fengbaozhicheng && git push
+> Executed command: cd /Users/chensu/suchot/fengbaozhicheng && git push
+
+| #193 | ″ | 🔵 | git add | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~23 |
+
+> **🔵 #193 git add** cd /Users/chensu/suchot/fengbaozhicheng && git add .gitig...
+> Executed command: cd /Users/chensu/suchot/fengbaozhicheng && git add .gitignore && git commit --trailer "Co-authored-by: Cursor <cursoragent@cursor.com>" -m "feat: 风暴之城蓝图助手 - 后端/前端/数据与脚本
+
+| #191 | 3:47 PM | 🔵 | git reset | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~24 |
+
+> **🔵 #191 git reset** cd /Users/chensu/suchot/fengbaozhicheng && git reset HEAD...
+> Executed command: cd /Users/chensu/suchot/fengbaozhicheng && git reset HEAD backend/app/data/templates/**/*.bak 2>/dev/null; git reset HEAD 'backend/app/data/templates/blueprints/*.bak' 'backend/app/data/templates/species/*.bak' 2>/dev/null; git add .gitignore
+
+| #189 | ″ | 🔵 | git status | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~22 |
+| #188 | ″ | 🔵 | git add | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~23 |
+| #187 | ″ | 🔵 | git status | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~22 |
+| #186 | ″ | 🔵 | git_status | {"repo_path":"/Users/chensu/suchot/fengbaozhi | ~22 |
+| #184 | 3:45 PM | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+| #182 | 3:44 PM | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+| #176 | 3:42 PM | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+| #172 | 3:41 PM | 🔵 | python3 | cd /Users/chensu/suchot/fengbaozhicheng && py | ~22 |
+| #171 | 3:40 PM | 🔵 | python3 | cd /Users/chensu/suchot/fengbaozhicheng && py | ~22 |
+| #170 | 3:36 PM | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+| #169 | ″ | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+| #167 | ″ | 🔵 | python | cd /Users/chensu/suchot/fengbaozhicheng && py | ~23 |
+
+**-30**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #192 | 3:47 PM | 🔵 | git reset | cd /Users/chensu/suchot/fengbaozhicheng && gi | ~24 |
+
+> **🔵 #192 git reset** cd /Users/chensu/suchot/fengbaozhicheng && git reset HEAD...
+> Executed command: cd /Users/chensu/suchot/fengbaozhicheng && git reset HEAD -- backend/app/data/templates/blueprints/*.bak backend/app/data/templates/species/*.bak 2>/dev/null; git status --short | head -30
+
+
+**suchot/fengbaozhicheng/.gitignore**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #190 | 3:47 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/.gitigno | ~19 |
+
+> **🔵 #190 Write** /Users/chensu/suchot/fengbaozhicheng/.gitignore
+> Wrote file: /Users/chensu/suchot/fengbaozhicheng/.gitignore
+
+
+**suchot/fengbaozhicheng/docs/BLUEPRINT_DATA.md**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #185 | 3:45 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/docs/BLU | ~22 |
+| #166 | 3:36 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/docs/BLU | ~22 |
+| #165 | 3:35 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/docs/BLU | ~22 |
+
+**suchot/fengbaozhicheng/scripts/scrape_recipes.py**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #183 | 3:44 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #181 | 3:43 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #180 | ″ | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #179 | ″ | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #178 | 3:42 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #177 | ″ | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #175 | 3:41 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #174 | ″ | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+| #173 | ″ | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~23 |
+
+**suchot/fengbaozhicheng/scripts/scrape_building_details.py**
+| ID | Time | T | Title | Detail | ~Tok |
+|----|------|---|-------|--------|------|
+| #168 | 3:36 PM | 🔵 | Write | /Users/chensu/suchot/fengbaozhicheng/scripts/ | ~25 |
+
+*Use cursor-mem MCP search tools to fetch full observation details by ID.*
+
+*Last updated: 2026-02-26T02:45:56.970Z*
