@@ -7,7 +7,7 @@
   及社区常用译名（如维基、攻略中的 人类/海狸/鸟身女妖/蜥蜴人/狐狸）。未在官方或社区
   查到的项保留英文展示。
 """
-from typing import Dict, Optional
+from typing import Dict, Optional, Union, List
 
 # 物种：英文以 Wiki 为准，中文以游戏/社区常用译名（人类、海狸、鸟身女妖、蜥蜴人、狐狸）
 SPECIES_EN_TO_ZH: Dict[str, str] = {
@@ -63,52 +63,87 @@ RESOURCES_EN_TO_ZH: Dict[str, str] = {
     "Oil": "油",
     "Simple Tools": "简易工具",
     "Amber": "琥珀",
+    "Porridge": "粥",
+    "Eggs": "鸡蛋",
+    "Meat": "肉",
+    "Vegetables": "蔬菜",
+    "Roots": "根茎",
 }
 RESOURCES_ZH_TO_EN: Dict[str, str] = {v: k for k, v in RESOURCES_EN_TO_ZH.items()}
 
 # 建筑名：英文以 Wiki Buildings 为准；中文暂无官方对照表时保留英文，待从游戏内或社区补充
 # 以下为常见意译，非 Fandom 提供（Wiki 无中文）
 BUILDINGS_EN_TO_ZH: Dict[str, str] = {
-    "Clay Pit": "Clay Pit",
-    "Forager's Camp": "Forager's Camp",
-    "Harvester's Camp": "Harvester's Camp",
-    "Herbalists' Camp": "Herbalists' Camp",
-    "Stonecutters' Camp": "Stonecutters' Camp",
-    "Trappers' Camp": "Trappers' Camp",
-    "Woodcutters' Camp": "Woodcutters' Camp",
-    "Greenhouse": "Greenhouse",
-    "Herb Garden": "Herb Garden",
-    "Homestead": "Homestead",
-    "Plantation": "Plantation",
-    "Ranch": "Ranch",
-    "Small Farm": "Small Farm",
-    "Bakery": "Bakery",
-    "Brewery": "Brewery",
-    "Brick Oven": "Brick Oven",
-    "Butcher": "Butcher",
-    "Cellar": "Cellar",
-    "Cookhouse": "Cookhouse",
-    "Distillery": "Distillery",
-    "Field Kitchen": "Field Kitchen",
-    "Granary": "Granary",
-    "Grill": "Grill",
-    "Smokehouse": "Smokehouse",
-    "Bath House": "Bath House",
-    "Clan Hall": "Clan Hall",
-    "Explorer's Lodge": "Explorer's Lodge",
-    "Guild House": "Guild House",
-    "Monastery": "Monastery",
-    "Tavern": "Tavern",
-    "Temple": "Temple",
+    "Clay Pit": "粘土坑",
+    "Forager's Camp": "采集者营地",
+    "Harvester's Camp": "收割者营地",
+    "Herbalists' Camp": "草药师营地",
+    "Stonecutters' Camp": "石匠营地",
+    "Trappers' Camp": "陷阱师营地",
+    "Woodcutters' Camp": "伐木营地",
+    "Greenhouse": "温室",
+    "Herb Garden": "草药园",
+    "Homestead": "农舍",
+    "Plantation": "种植园",
+    "Ranch": "牧场",
+    "Small Farm": "小农场",
+    "Bakery": "面包房",
+    "Brewery": "酿酒厂",
+    "Brick Oven": "砖炉",
+    "Butcher": "屠宰场",
+    "Cellar": "地窖",
+    "Cookhouse": "厨房",
+    "Distillery": "蒸馏厂",
+    "Field Kitchen": "野战厨房",
+    "Granary": "粮仓",
+    "Grill": "烧烤架",
+    "Smokehouse": "熏制房",
+    "Bath House": "浴堂",
+    "Clan Hall": "氏族大厅",
+    "Explorer's Lodge": "探险家小屋",
+    "Guild House": "公会大厅",
+    "Monastery": "修道院",
+    "Tavern": "酒馆",
+    "Temple": "神庙",
+    "Kiln": "窑",
+    "Lumber Mill": "锯木场",
+    "Mine": "矿场",
+    "Farm": "农场",
+    "Fishery": "渔场",
+    "Apothecary": "药剂铺",
+    "Smithy": "铁匠铺",
+    "Alchemy Workshop": "炼金工坊",
+    "Forge": "锻造厂",
+    "Library": "图书馆",
+    "Market": "市场",
+    "Barracks": "兵营",
+    "Training Ground": "训练场",
+    "Quarry": "采石场",
+    "Weaver": "织布坊",
+    "Pottery": "陶器作坊",
+    "Workshop": "工坊",
 }
 BUILDINGS_ZH_TO_EN: Dict[str, str] = {v: k for k, v in BUILDINGS_EN_TO_ZH.items()}
 
 
-def species_to_display(species_en: str, lang: str) -> str:
-    """内部物种（英文）-> 展示用（zh 返回中文，否则英文）"""
-    if lang == "zh":
-        return SPECIES_EN_TO_ZH.get(species_en, species_en)
-    return species_en
+def species_to_display(species_en: Union[str, List[str]], lang: str) -> Union[str, List[str]]:
+    """内部物种（英文）-> 展示用（zh 返回中文，否则英文）
+    
+    Args:
+        species_en: Single species name or list of species names
+        lang: Language code ('zh' or 'en')
+    
+    Returns:
+        Translated species name(s)
+    """
+    if isinstance(species_en, list):
+        if lang == "zh":
+            return [SPECIES_EN_TO_ZH.get(s, s) for s in species_en]
+        return species_en
+    else:
+        if lang == "zh":
+            return SPECIES_EN_TO_ZH.get(species_en, species_en)
+        return species_en
 
 
 def species_to_internal(species: str) -> str:
@@ -153,7 +188,7 @@ def translate_analyze_response(response: dict, lang: str) -> dict:
         **gs,
         "available_blueprints": [blueprint_name_to_display(b, "zh") for b in gs.get("available_blueprints", [])],
         "resources": resource_keys_to_display(gs.get("resources") or {}, "zh"),
-        "species": species_to_display(gs.get("species", ""), "zh"),
+        "species": species_to_display(gs.get("species", []), "zh"),
     }
     recs = out.get("recommendations") or []
     out["recommendations"] = []

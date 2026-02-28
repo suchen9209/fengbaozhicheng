@@ -18,6 +18,7 @@ from app.models import Box, GameState, AnalysisRecord
 from app.services.recommendation_engine import RecommendationEngine
 from app.services.history_service import HistoryService
 from app.strategies import StrategyType, EventType, get_all_strategies, get_all_events
+from app.cornerstones import get_all_cornerstones
 
 router = APIRouter()
 
@@ -40,11 +41,13 @@ class BoxModel(BaseModel):
 
 class AnalyzeRequest(BaseModel):
     """Request model for analyze endpoint"""
-    boxes: List[BoxModel]
+    boxes: Optional[List[BoxModel]] = None
     session_id: Optional[str] = None
     
     @validator('boxes')
     def validate_boxes(cls, v):
+        if v is None:
+            return v
         if len(v) != 3:
             raise ValueError("必须提供3个识别框")
         labels = {box.label for box in v}
@@ -70,15 +73,24 @@ async def get_events():
     }
 
 
+@router.get("/api/v1/cornerstones")
+async def get_cornerstones():
+    """Get all available cornerstones for recommendation"""
+    return {
+        "cornerstones": get_all_cornerstones()
+    }
+
+
 @router.post("/api/v1/analyze")
 async def analyze_screenshot(
     request: Request,
     image: UploadFile = File(...),
-    boxes: str = Form(...),
+    boxes: Optional[str] = Form(None),
     session_id: Optional[str] = Form(None),
     lang: Optional[str] = Form("en"),
     strategy: Optional[str] = Form(None),
     event: Optional[str] = Form(None),
+    cornerstones: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -105,15 +117,17 @@ async def analyze_screenshot(
                 detail="文件大小不能超过10MB"
             )
         
-        # Parse boxes
-        try:
-            boxes_data = json.loads(boxes)
-            analyze_request = AnalyzeRequest(boxes=boxes_data, session_id=session_id)
-        except (json.JSONDecodeError, ValueError) as e:
-            raise HTTPException(
-                status_code=400,
-                detail=f"识别框数据格式错误: {str(e)}"
-            )
+        # Parse boxes or use auto-detect
+        boxes_data = None
+        if boxes:
+            try:
+                boxes_data = json.loads(boxes)
+                analyze_request = AnalyzeRequest(boxes=boxes_data, session_id=session_id)
+            except (json.JSONDecodeError, ValueError) as e:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"识别框数据格式错误: {str(e)}"
+                )
         
         # Save screenshot
         upload_dir = os.getenv("UPLOAD_DIR", "./uploads")
@@ -155,20 +169,36 @@ async def analyze_screenshot(
                 fallback_resources=fallback_res,
             )
             
-            # Convert boxes to Box objects
-            box_objects = [
-                Box(
-                    x=box['x'],
-                    y=box['y'],
-                    width=box['width'],
-                    height=box['height'],
-                    label=box['label']
-                )
-                for box in analyze_request.boxes
-            ]
+            # Convert boxes to Box objects or use auto-detect
+            if boxes_data:
+                box_objects = [
+                    Box(
+                        x=box['x'],
+                        y=box['y'],
+                        width=box['width'],
+                        height=box['height'],
+                        label=box['label']
+                    )
+                    for box in boxes_data
+                ]
+            else:
+                # Auto-detect boxes based on image size
+                import cv2
+                img = cv2.imread(file_path)
+                if img is not None:
+                    height, width = img.shape[:2]
+                    box_objects = image_service.get_default_boxes(width, height)
+                else:
+                    raise HTTPException(status_code=400, detail="无法读取图片")
             
             # Analyze screenshot
             game_state = image_service.analyze_screenshot(file_path, box_objects)
+            
+            # Auto-detect cornerstones if not provided
+            if not cornerstones:
+                detected_cornerstones = image_service.detect_cornerstones(file_path)
+                if detected_cornerstones:
+                    cornerstones = ','.join(detected_cornerstones)
             
         except Exception as e:
             import logging
@@ -185,7 +215,7 @@ async def analyze_screenshot(
             game_state = GameState(
                 available_blueprints=fallback_bps,
                 resources=fallback_res,
-                species="Human",
+                species=["Human"],
                 confidence={"blueprints": 0.85, "resources": 0.92, "species": 0.95}
             )
         
@@ -197,9 +227,10 @@ async def analyze_screenshot(
                 detail="蓝图数据未加载"
             )
         
-        # Parse strategy and event
+        # Parse strategy, event and cornerstones
         strategy_type = None
         event_type = None
+        cornerstones_list = None
         
         if strategy:
             try:
@@ -213,6 +244,10 @@ async def analyze_screenshot(
             except ValueError:
                 pass  # Invalid event, use default
         
+        # Parse cornerstones (comma-separated list)
+        if cornerstones:
+            cornerstones_list = [c.strip() for c in cornerstones.split(',') if c.strip()]
+        
         engine = RecommendationEngine(blueprint_loader.blueprints)
         recommendations = engine.generate_recommendations(
             game_state,
@@ -220,7 +255,8 @@ async def analyze_screenshot(
             top_k=5,
             response_lang=response_lang,
             strategy=strategy_type,
-            event=event_type
+            event=event_type,
+            cornerstones=cornerstones_list
         )
         
         # Save to history
@@ -232,7 +268,7 @@ async def analyze_screenshot(
             game_state=game_state,
             recommendations=recommendations,
             user_id=None,
-            session_id=analyze_request.session_id or str(uuid.uuid4())
+            session_id=session_id or str(uuid.uuid4())
         )
         
         history_service = HistoryService(db)
@@ -256,6 +292,7 @@ async def analyze_screenshot(
                     "reasoning": rec.reasoning,
                     "buildable": rec.buildable,
                     "missing_resources": rec.missing_resources,
+                    "cornerstone_bonus": rec.cornerstone_bonus,
                     "details": {
                         "name": rec.details.name,
                         "name_en": rec.details.name_en,

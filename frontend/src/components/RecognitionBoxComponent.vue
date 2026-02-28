@@ -14,6 +14,27 @@
     </div>
 
     <div class="box-controls">
+      <div class="auto-detect-section">
+        <el-button 
+          type="primary" 
+          @click="autoDetectBoxes"
+          :loading="isDetecting"
+          size="small"
+        >
+          🎯 自动定位
+        </el-button>
+        <el-button 
+          type="default" 
+          @click="resetToDefault"
+          size="small"
+        >
+          重置
+        </el-button>
+        <span class="resolution-hint" v-if="imageResolution">
+          分辨率: {{ imageResolution.width }}×{{ imageResolution.height }}
+        </span>
+      </div>
+
       <div class="box-list">
         <div
           v-for="box in boxes"
@@ -25,7 +46,7 @@
           <div class="box-info">
             <span class="box-label">{{ getBoxDisplayName(box.label) }}</span>
             <span class="box-coords">
-              {{ box.x }}, {{ box.y }}, {{ box.width }}×{{ box.height }}
+              {{ Math.round(box.x) }}, {{ Math.round(box.y) }}, {{ Math.round(box.width) }}×{{ Math.round(box.height) }}
             </span>
           </div>
           <div class="box-color" :style="{ background: getBoxColor(box.label) }" />
@@ -40,9 +61,9 @@
           show-icon
         >
           <ul>
-            <li>点击并拖动识别框来移动位置</li>
+            <li>点击"自动定位"智能识别区域</li>
+            <li>点击并拖动识别框来微调位置</li>
             <li>拖动识别框边缘来调整大小</li>
-            <li>点击左侧列表选择要调整的识别框</li>
           </ul>
         </el-alert>
       </div>
@@ -86,6 +107,8 @@ const boxes = ref<Box[]>([
 const selectedBox = ref<Box | null>(null)
 const isDragging = ref(false)
 const isResizing = ref(false)
+const isDetecting = ref(false)
+const imageResolution = ref<{width: number, height: number} | null>(null)
 const resizeHandle = ref<string>('')
 const dragStart = ref({ x: 0, y: 0 })
 const boxStart = ref({ x: 0, y: 0, width: 0, height: 0 })
@@ -114,6 +137,7 @@ const initCanvas = async () => {
   const img = new Image()
   img.onload = () => {
     image.value = img
+    imageResolution.value = { width: img.width, height: img.height }
 
     // Set canvas size to match image
     if (canvasRef.value) {
@@ -121,8 +145,8 @@ const initCanvas = async () => {
       canvasRef.value.height = img.height
       ctx.value = canvasRef.value.getContext('2d')
       
-      // Draw initial state
-      draw()
+      // 自动检测位置
+      autoDetectBoxes()
     }
   }
   img.src = props.imageUrl
@@ -390,12 +414,81 @@ const emitBoxes = () => {
   emit('boxes-updated', boxes.value)
 }
 
+// 根据图片分辨率计算预设位置
+const calculateDefaultBoxes = (width: number, height: number): Box[] => {
+  // 基于 2560x1440 的参考位置，按比例缩放
+  const refWidth = 2560
+  const refHeight = 1440
+  
+  const scaleX = width / refWidth
+  const scaleY = height / refHeight
+  
+  // 蓝图选择区域（中间偏下，4个卡片位置）
+  const blueprintsBox: Box = {
+    x: Math.round(560 * scaleX),      // 左边距
+    y: Math.round(420 * scaleY),      // 上边距
+    width: Math.round(1440 * scaleX), // 宽度覆盖4个卡片
+    height: Math.round(600 * scaleY), // 高度
+    label: 'blueprints'
+  }
+  
+  // 资源区域（顶部横向栏 - 资源图标在顶部）
+  const resourcesBox: Box = {
+    x: Math.round(300 * scaleX),      // 左侧起始
+    y: Math.round(5 * scaleY),        // 顶部
+    width: Math.round(1960 * scaleX), // 宽度覆盖顶部资源栏
+    height: Math.round(80 * scaleY),  // 高度约80像素
+    label: 'resources'
+  }
+  
+  // 种族/人口区域（左侧 - 三个圆形头像）
+  const speciesBox: Box = {
+    x: Math.round(10 * scaleX),       // 最左侧
+    y: Math.round(50 * scaleY),       // 从顶部开始覆盖三个头像
+    width: Math.round(250 * scaleX),  // 宽度覆盖左侧栏
+    height: Math.round(500 * scaleY), // 高度覆盖三个种族头像
+    label: 'species'
+  }
+  
+  return [blueprintsBox, resourcesBox, speciesBox]
+}
+
+// 自动检测/定位
+const autoDetectBoxes = async () => {
+  if (!image.value || !canvasRef.value) return
+  
+  isDetecting.value = true
+  
+  // 模拟检测延迟
+  await new Promise(resolve => setTimeout(resolve, 300))
+  
+  const width = image.value.width
+  const height = image.value.height
+  
+  // 根据分辨率设置预设位置
+  boxes.value = calculateDefaultBoxes(width, height)
+  
+  isDetecting.value = false
+  draw()
+  emitBoxes()
+}
+
+// 重置为默认位置
+const resetToDefault = () => {
+  if (!image.value) return
+  
+  boxes.value = calculateDefaultBoxes(image.value.width, image.value.height)
+  draw()
+  emitBoxes()
+}
+
 const getBoxCoordinates = (): Box[] => {
   return boxes.value
 }
 
 defineExpose({
-  getBoxCoordinates
+  getBoxCoordinates,
+  autoDetectBoxes
 })
 </script>
 
@@ -481,6 +574,24 @@ canvas {
   border: 1px solid #dcdfe6;
 }
 
+.auto-detect-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #f0f9ff;
+  border-radius: 4px;
+  border: 1px solid #409eff;
+}
+
+.resolution-hint {
+  margin-left: auto;
+  font-size: 12px;
+  color: #606266;
+  font-family: monospace;
+}
+
 .instructions {
   margin-top: auto;
 }
@@ -503,6 +614,12 @@ canvas {
 
   .box-controls {
     width: 100%;
+  }
+  
+  .resolution-hint {
+    margin-left: 0;
+    width: 100%;
+    text-align: right;
   }
 }
 </style>

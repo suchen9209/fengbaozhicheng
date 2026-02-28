@@ -8,6 +8,10 @@ from app.strategies import (
     StrategyType, EventType, 
     get_strategy_config, get_event_config
 )
+from app.cornerstones import (
+    calculate_cornerstone_bonus,
+    get_recommended_cornerstones
+)
 
 
 class RecommendationEngine:
@@ -29,7 +33,8 @@ class RecommendationEngine:
         top_k: int = 5,
         response_lang: str = "en",
         strategy: Optional[StrategyType] = None,
-        event: Optional[EventType] = None
+        event: Optional[EventType] = None,
+        cornerstones: Optional[List[str]] = None
     ) -> List[Recommendation]:
         """
         Generate blueprint recommendations based on game state, strategy and events
@@ -52,6 +57,12 @@ class RecommendationEngine:
         
         scored_blueprints = []
         
+        # Get recommended cornerstones based on strategy and blueprints
+        recommended_cs_ids = get_recommended_cornerstones(available_blueprints, strategy.value if strategy else "balanced")
+        
+        # Use provided cornerstones or recommended ones
+        active_cornerstones = cornerstones if cornerstones else []
+        
         # Calculate score for each available blueprint
         for blueprint_name in available_blueprints:
             blueprint = self.blueprints_data.get(blueprint_name)
@@ -63,10 +74,15 @@ class RecommendationEngine:
             buildable = game_state.has_resources_for(blueprint)
             missing_resources = game_state.get_missing_resources(blueprint)
             
+            # Calculate cornerstone bonus
+            cs_bonus = calculate_cornerstone_bonus(
+                blueprint.name, blueprint.name_en, active_cornerstones
+            )
+            
             # Calculate base score
             score, reasoning = self._calculate_score(
                 blueprint, game_state, response_lang, buildable, missing_resources,
-                strategy_config, event_config
+                strategy_config, event_config, cs_bonus
             )
             
             scored_blueprints.append({
@@ -74,7 +90,8 @@ class RecommendationEngine:
                 'score': score,
                 'reasoning': reasoning,
                 'buildable': buildable,
-                'missing_resources': missing_resources
+                'missing_resources': missing_resources,
+                'cornerstone_bonus': cs_bonus
             })
         
         # Sort by: buildable first, then by score descending
@@ -93,7 +110,9 @@ class RecommendationEngine:
                 reasoning=item['reasoning'],
                 details=item['blueprint'],
                 buildable=item['buildable'],
-                missing_resources=item['missing_resources']
+                missing_resources=item['missing_resources'],
+                cornerstone_bonus=item.get('cornerstone_bonus', 1.0),
+                recommended_cornerstones=recommended_cs_ids
             )
             recommendations.append(recommendation)
         
@@ -107,10 +126,11 @@ class RecommendationEngine:
         buildable: bool = True,
         missing_resources: Dict[str, Dict[str, int]] = None,
         strategy_config=None,
-        event_config=None
+        event_config=None,
+        cornerstone_bonus: float = 1.0
     ) -> Tuple[float, str]:
         """
-        Calculate score for a single blueprint with strategy and event adjustments
+        Calculate score for a single blueprint with strategy, event and cornerstone adjustments
         
         Args:
             blueprint: Blueprint to score
@@ -120,6 +140,7 @@ class RecommendationEngine:
             missing_resources: Dict of missing resources if not buildable
             strategy_config: Strategy configuration for scoring adjustment
             event_config: Event configuration for urgent recommendations
+            cornerstone_bonus: Bonus multiplier from active cornerstones
         
         Returns:
             Tuple of (total_score, reasoning_text)
@@ -157,9 +178,16 @@ class RecommendationEngine:
         event_bonus = self._calculate_event_bonus(blueprint, event_config)
         scores['event_bonus'] = event_bonus
         
-        # Calculate total score
-        total_score = (base_value + synergy + resource - complexity_penalty + 
-                      scores['buildable_bonus'] + strategy_bonus + event_bonus)
+        # Calculate subtotal before cornerstone
+        subtotal = (base_value + synergy + resource - complexity_penalty + 
+                   scores['buildable_bonus'] + strategy_bonus + event_bonus)
+        
+        # Apply cornerstone bonus
+        if cornerstone_bonus != 1.0:
+            scores['cornerstone_bonus'] = cornerstone_bonus
+            total_score = subtotal * cornerstone_bonus
+        else:
+            total_score = subtotal
         
         reasoning = self._generate_reasoning_v2(
             blueprint, scores, response_lang, buildable, missing_resources or {},
@@ -186,22 +214,24 @@ class RecommendationEngine:
     def _calculate_synergy_score(
         self,
         blueprint: Blueprint,
-        species: str
+        species: List[str]
     ) -> float:
         """
-        Calculate species synergy score: +5 if species matches preferences
+        Calculate species synergy score: +5 if any species matches preferences
         
         Args:
             blueprint: Blueprint to score
-            species: Current species
+            species: List of current species (e.g., ["Human", "Beaver", "Lizard"])
         
         Returns:
             Synergy score (0 or 5)
         """
         species_preferences = blueprint.synergy.get('species_preferences', [])
         
-        if species in species_preferences:
-            return 5.0
+        # Check if any of the player's species matches the blueprint's preferred species
+        for s in species:
+            if s in species_preferences:
+                return 5.0
         
         return 0.0
     
@@ -474,7 +504,7 @@ class RecommendationEngine:
         parts = []
         
         # Strategy and event context
-        if strategy_config and strategy_config.type != 'balanced':
+        if strategy_config and strategy_config.name_en != 'Balanced':
             parts.append(f"📊 Strategy: {strategy_config.name_en}")
         if event_config and event_config.urgent:
             parts.append(f"🚨 URGENT: {event_config.name_en}")
@@ -519,10 +549,16 @@ class RecommendationEngine:
             parts.append(f"Strategy bonus: +{int(scores['strategy_bonus'])} pts")
         if scores.get('event_bonus', 0) > 0:
             parts.append(f"🚨 Event bonus: +{int(scores['event_bonus'])} pts (URGENT)")
+        if scores.get('cornerstone_bonus', 1.0) != 1.0:
+            bonus_pct = int((scores['cornerstone_bonus'] - 1.0) * 100)
+            parts.append(f"🏛️ Cornerstone bonus: ×{scores['cornerstone_bonus']} (+{bonus_pct}%)")
         
         total = (scores['base_value'] + scores['synergy'] + scores['resource'] - 
                 scores['complexity_penalty'] + scores.get('buildable_bonus', 0) +
                 scores.get('strategy_bonus', 0) + scores.get('event_bonus', 0))
+        # Apply cornerstone bonus to display total
+        if scores.get('cornerstone_bonus', 1.0) != 1.0:
+            total = total * scores['cornerstone_bonus']
         parts.append(f"Total: {round(total, 1)} pts")
         return "\n".join(parts)
     
@@ -584,6 +620,9 @@ class RecommendationEngine:
             parts.append(f"策略加成: +{int(scores['strategy_bonus'])}分")
         if scores.get('event_bonus', 0) > 0:
             parts.append(f"🚨 事件加成: +{int(scores['event_bonus'])}分 (紧急)")
+        if scores.get('cornerstone_bonus', 1.0) != 1.0:
+            bonus_pct = int((scores['cornerstone_bonus'] - 1.0) * 100)
+            parts.append(f"🏛️ 基石加成: ×{scores['cornerstone_bonus']} (+{bonus_pct}%)")
         
         total = (scores['base_value'] + scores['synergy'] + scores['resource'] - 
                 scores['complexity_penalty'] + scores.get('buildable_bonus', 0) +

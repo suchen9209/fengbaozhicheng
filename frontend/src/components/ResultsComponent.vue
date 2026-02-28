@@ -328,13 +328,23 @@ defineExpose({
   gap: 8px;
 }
 
+.recommendations-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .recommendations-list h3 {
+  width: 100%;
   margin-bottom: 16px;
   color: #303133;
 }
 
 .recommendation-card {
-  margin-bottom: 16px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
   transition: all 0.3s;
 }
 
@@ -408,6 +418,8 @@ defineExpose({
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 12px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .rec-reasoning pre {
@@ -415,8 +427,8 @@ defineExpose({
   font-family: inherit;
   white-space: pre-wrap;
   color: #606266;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .rec-details {
@@ -508,6 +520,15 @@ defineExpose({
 
 /* Mobile responsive styles */
 @media (max-width: 768px) {
+  .recommendations-list {
+    flex-direction: column;
+  }
+  
+  .recommendation-card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
   .rec-header {
     flex-direction: column;
     align-items: flex-start;

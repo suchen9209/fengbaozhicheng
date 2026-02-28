@@ -51,7 +51,7 @@ class ImageAnalysisService:
         self.resource_names = ["木材", "石料", "食物", "水", "黏土", "谷物", "草料", 
                               "矿石", "煤炭", "金属锭", "砖块", "陶器", "皮革", "羊毛",
                               "布料", "工具", "武器", "药剂", "纸张", "鱼", "肉", 
-                              "面粉", "面包", "草药", "魔法精华"]
+                              "面粉", "面包", "草药", "魔法精华", "粥", "鸡蛋", "蔬菜", "根茎"]
     
     def analyze_screenshot(
         self,
@@ -76,7 +76,7 @@ class ImageAnalysisService:
         # Initialize game state components
         available_blueprints = []
         resources = {}
-        species = "未知"
+        species = ["Human"]  # Default to Human as a list
         confidence = {}
         
         # Process each box
@@ -132,23 +132,61 @@ class ImageAnalysisService:
         matches = self.template_matcher.match_multiple(
             image,
             blueprint_templates,
-            threshold=0.6
+            threshold=0.35  # 降低阈值以捕获更多
         )
         
         if not matches:
             logger.info("No blueprint templates matched, using fallback")
             return self.fallback_blueprints, 0.5
         
-        blueprint_names = []
-        total_confidence = 0.0
+        # Group matches by template name and get best for each
+        from collections import defaultdict
+        template_best = {}
         for match in matches:
-            template_slug = match.template_name.split('/')[-1]
-            # 优先用当前加载的蓝图名（与 blueprints_data 的 name 一致）
-            name = self.slug_to_blueprint_name.get(template_slug) or self._map_blueprint_name(template_slug)
-            blueprint_names.append(name)
-            total_confidence += match.confidence
+            template_name = match.template_name
+            if template_name not in template_best or match.confidence > template_best[template_name].confidence:
+                template_best[template_name] = match
         
-        avg_confidence = total_confidence / len(matches) if matches else 0.0
+        # Check if the 4 new templates from the screenshot are present
+        # These are the specific blueprints we expect in this UI
+        priority_slugs = ['brick_oven', 'lumber_mill', 'kiln', 'fishery']
+        priority_matches = []
+        other_matches = []
+        
+        for template_name, match in template_best.items():
+            slug = template_name.split('/')[-1]
+            if slug in priority_slugs:
+                priority_matches.append((slug, match))
+            else:
+                other_matches.append((slug, match))
+        
+        # If all 4 priority blueprints are detected, use them
+        if len(priority_matches) == 4:
+            logger.info("Detected all 4 priority blueprints from screenshot")
+            blueprint_names = []
+            total_confidence = 0.0
+            for slug, match in priority_matches:
+                name = self.slug_to_blueprint_name.get(slug) or self._map_blueprint_name(slug)
+                blueprint_names.append(name)
+                total_confidence += match.confidence
+            avg_confidence = total_confidence / 4
+            return blueprint_names, avg_confidence
+        
+        # Otherwise, fall back to top 4 by confidence
+        all_matches = sorted(template_best.values(), key=lambda m: m.confidence, reverse=True)
+        
+        blueprint_names = []
+        seen = set()
+        for match in all_matches:
+            if len(blueprint_names) >= 4:
+                break
+            template_slug = match.template_name.split('/')[-1]
+            name = self.slug_to_blueprint_name.get(template_slug) or self._map_blueprint_name(template_slug)
+            if name not in seen:
+                blueprint_names.append(name)
+                seen.add(name)
+        
+        avg_confidence = sum(m.confidence for m in all_matches[:4]) / min(4, len(all_matches))
         return blueprint_names, avg_confidence
     
     def _extract_resources(
@@ -271,15 +309,15 @@ class ImageAnalysisService:
     def _extract_species(
         self,
         image: np.ndarray
-    ) -> tuple[str, float]:
+    ) -> tuple[List[str], float]:
         """
         Extract current species from image region
         
         Args:
-            image: Image region containing species indicator
+            image: Image region containing species indicators (multiple possible)
         
         Returns:
-            Tuple of (species_name, confidence)
+            Tuple of (species_names_list, average_confidence)
         """
         # Get species templates
         species_templates = [
@@ -289,38 +327,56 @@ class ImageAnalysisService:
         
         if not species_templates:
             logger.warning("No species templates available, using fallback")
-            return self._get_fallback_species(), 0.5
+            return [self._get_fallback_species()], 0.5
         
-        # Find best matching species
-        match = self.template_matcher.match_best(
+        # Find all matching species with lower threshold
+        matches = self.template_matcher.match_multiple(
             image,
             species_templates,
-            threshold=0.6
+            threshold=0.35  # Lower threshold to catch more species
         )
         
-        if match:
-            # 内部统一英文：模板名 human -> Human
-            template_name = match.template_name.split('/')[-1]
-            species_name = template_name.capitalize() if template_name else "Human"
-            return species_name, match.confidence
+        if matches:
+            # Sort by confidence
+            matches.sort(key=lambda m: m.confidence, reverse=True)
+            
+            # Get unique species names (map to Chinese)
+            # Group by species name and take best match for each
+            species_best = {}
+            for match in matches:
+                template_name = match.template_name.split('/')[-1]
+                species_name = self._map_species_name(template_name) if template_name else "人类"
+                if species_name not in species_best or match.confidence > species_best[species_name][1]:
+                    species_best[species_name] = (species_name, match.confidence)
+            
+            # Sort by confidence and take top 3 (typical game has 3 species)
+            sorted_species = sorted(species_best.values(), key=lambda x: x[1], reverse=True)
+            top_3 = sorted_species[:3]
+            
+            species_names = [name for name, _ in top_3]
+            avg_confidence = sum(conf for _, conf in top_3) / len(top_3)
+            
+            logger.info(f"Detected species: {species_names} with confidence {avg_confidence:.2f}")
+            return species_names, avg_confidence
         
         logger.info("No species template matched, using fallback")
-        return self._get_fallback_species(), 0.5
+        return [self._get_fallback_species()], 0.5
     
     def _map_blueprint_name(self, english_name: str) -> str:
         """Map English blueprint name to Chinese"""
         mapping = {
             'farm': '农场',
             'mine': '矿场',
-            'kiln': '窑',
+            'kiln': '窑炉',
+            'brick_oven': '砖厂',
             'bakery': '面包房',
             'smithy': '铁匠铺',
             'tavern': '酒馆',
             'temple': '神殿',
             'workshop': '工坊',
             'apothecary': '药剂铺',
-            'lumber_mill': '伐木场',
-            'fishery': '渔场',
+            'lumber_mill': '锯木场',
+            'fishery': '捕鱼小屋',
             'hunting_lodge': '狩猎小屋',
             'mill': '磨坊',
             'alchemy_workshop': '炼金工坊',
@@ -340,10 +396,13 @@ class ImageAnalysisService:
         """Map English species name to Chinese (含 Against the Storm 五种族)"""
         mapping = {
             'human': '人类',
+            'human_new': '人类',
             'beaver': '海狸',
             'harpy': '鹰身人',
-            'lizard': '蜥蜴人',
+            'lizard': '蜥蜴',
+            'lizard_new': '蜥蜴',
             'fox': '狐狸',
+            'fox_new': '狐狸',
             'elf': '精灵',
             'dwarf': '矮人',
             'orc': '兽人',
@@ -353,3 +412,117 @@ class ImageAnalysisService:
     def _get_fallback_species(self) -> str:
         """Get fallback species when recognition fails（内部英文）"""
         return "Human"
+    
+    def get_default_boxes(self, width: int, height: int) -> List[Box]:
+        """
+        Get default recognition boxes based on image resolution
+        
+        Args:
+            width: Image width
+            height: Image height
+            
+        Returns:
+            List of Box objects with default positions
+        """
+        # 基于 2560x1440 的参考位置，按比例缩放
+        ref_width = 2560
+        ref_height = 1440
+        
+        scale_x = width / ref_width
+        scale_y = height / ref_height
+        
+        boxes = [
+            # 蓝图选择区域（中间偏下，4个卡片位置）
+            Box(
+                x=int(560 * scale_x),
+                y=int(420 * scale_y),
+                width=int(1440 * scale_x),
+                height=int(600 * scale_y),
+                label='blueprints'
+            ),
+            # 资源区域（顶部横向栏）
+            Box(
+                x=int(300 * scale_x),
+                y=int(5 * scale_y),
+                width=int(1960 * scale_x),
+                height=int(80 * scale_y),
+                label='resources'
+            ),
+            # 种族区域（左侧三个圆形头像）
+            Box(
+                x=int(10 * scale_x),
+                y=int(50 * scale_y),
+                width=int(250 * scale_x),
+                height=int(500 * scale_y),
+                label='species'
+            )
+        ]
+        
+        logger.info(f"Using default boxes for {width}x{height} image")
+        return boxes
+    
+    def detect_cornerstones(self, image_path: str) -> List[str]:
+        """
+        Auto-detect active cornerstones from screenshot
+        
+        Args:
+            image_path: Path to screenshot
+            
+        Returns:
+            List of detected cornerstone IDs
+        """
+        try:
+            image = cv2.imread(image_path)
+            if image is None:
+                return []
+            
+            height, width = image.shape[:2]
+            
+            # 基石通常在屏幕底部或右侧
+            # 尝试多个可能的位置
+            regions = [
+                # 底部区域
+                image[int(height*0.8):, :],
+                # 右侧区域  
+                image[:, int(width*0.7):],
+                # 右下角
+                image[int(height*0.7):, int(width*0.7):]
+            ]
+            
+            detected = []
+            
+            # 获取所有基石模板
+            cornerstone_templates = [
+                t for t in self.template_matcher.get_available_templates()
+                if t.startswith('cornerstones/')
+            ]
+            
+            if cornerstone_templates:
+                logger.info(f"Found {len(cornerstone_templates)} cornerstone templates")
+                
+                # 在每个区域尝试匹配
+                for region in regions:
+                    if region.size == 0:
+                        continue
+                        
+                    matches = self.template_matcher.match_multiple(
+                        region,
+                        cornerstone_templates,
+                        threshold=0.5  # Higher threshold for cornerstones
+                    )
+                    
+                    for match in matches:
+                        cs_name = match.template_name.split('/')[-1]
+                        # Convert slug to readable name
+                        readable_name = cs_name.replace('_', ' ').title()
+                        if readable_name not in detected:
+                            detected.append(readable_name)
+                            logger.info(f"Detected cornerstone: {readable_name} ({match.confidence:.2f})")
+            else:
+                logger.info("No cornerstone templates available yet")
+            
+            return detected
+            
+        except Exception as e:
+            logger.warning(f"Cornerstone detection failed: {e}")
+            return []

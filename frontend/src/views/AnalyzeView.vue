@@ -72,6 +72,28 @@
                 </p>
               </div>
 
+              <el-divider />
+
+              <div class="cornerstone-section">
+                <h4>🏛️ 已选基石</h4>
+                <p class="hint-text">选择你已拥有的基石（可多选，会影响推荐）</p>
+                <el-checkbox-group v-model="selectedCornerstones" size="small">
+                  <el-checkbox 
+                    v-for="cs in cornerstones" 
+                    :key="cs.id"
+                    :label="cs.id"
+                    border
+                  >
+                    {{ cs.name_zh || cs.name }}
+                    <el-tag v-if="cs.rarity === 'Legendary'" type="warning" size="small" effect="dark">传说</el-tag>
+                    <el-tag v-else-if="cs.rarity === 'Epic'" type="primary" size="small" effect="dark">史诗</el-tag>
+                  </el-checkbox>
+                </el-checkbox-group>
+                <p v-if="selectedCornerstones.length > 0" class="cornerstone-desc">
+                  已选择 {{ selectedCornerstones.length }} 个基石，相关建筑将获得加成
+                </p>
+              </div>
+
               <div class="actions">
                 <el-button @click="currentStep = 0">返回</el-button>
                 <el-button type="primary" @click="currentStep = 2">
@@ -149,11 +171,13 @@ const uploadRef = ref()
 const recognitionBoxRef = ref()
 const currentBoxes = ref<any[]>([])
 
-// Strategy and Event selection
+// Strategy, Event and Cornerstone selection
 const strategies = ref<any[]>([])
 const events = ref<any[]>([])
+const cornerstones = ref<any[]>([])
 const selectedStrategy = ref('balanced')
 const selectedEvent = ref('')
+const selectedCornerstones = ref<string[]>([])
 
 const selectedStrategyDesc = computed(() => {
   const s = strategies.value.find(x => x.type === selectedStrategy.value)
@@ -170,17 +194,19 @@ const selectedEventUrgent = computed(() => {
   return e?.urgent
 })
 
-// Load strategies and events on mount
+// Load strategies, events and cornerstones on mount
 onMounted(async () => {
   try {
-    const [strategiesRes, eventsRes] = await Promise.all([
+    const [strategiesRes, eventsRes, cornerstonesRes] = await Promise.all([
       apiClient.get('/api/v1/strategies'),
-      apiClient.get('/api/v1/events')
+      apiClient.get('/api/v1/events'),
+      apiClient.get('/api/v1/cornerstones')
     ])
     strategies.value = strategiesRes.data.strategies
     events.value = eventsRes.data.events.filter((e: any) => e.type !== 'none')
+    cornerstones.value = cornerstonesRes.data.cornerstones
   } catch (error) {
-    console.error('Failed to load strategies/events:', error)
+    console.error('Failed to load strategies/events/cornerstones:', error)
   }
 })
 
@@ -212,12 +238,20 @@ const startAnalysis = async () => {
     const formData = new FormData()
     formData.append('image', uploadedFile.value)
     
-    // Get boxes from recognition component
-    const boxes = recognitionBoxRef.value?.getBoxCoordinates() || [
+    // Get boxes from recognition component and convert to integers
+    const rawBoxes = recognitionBoxRef.value?.getBoxCoordinates() || [
       { x: 100, y: 50, width: 300, height: 200, label: 'blueprints' },
       { x: 450, y: 50, width: 200, height: 150, label: 'resources' },
       { x: 700, y: 50, width: 100, height: 100, label: 'species' }
     ]
+    // Convert coordinates to integers (backend requires integers)
+    const boxes = rawBoxes.map((box: any) => ({
+      x: Math.round(box.x),
+      y: Math.round(box.y),
+      width: Math.round(box.width),
+      height: Math.round(box.height),
+      label: box.label
+    }))
     formData.append('boxes', JSON.stringify(boxes))
     
     // Get or create session ID
@@ -232,12 +266,15 @@ const startAnalysis = async () => {
     const responseLang = /^zh/i.test(navigator.language) ? 'zh' : 'en'
     formData.append('lang', responseLang)
     
-    // Add strategy and event if selected
+    // Add strategy, event and cornerstones if selected
     if (selectedStrategy.value && selectedStrategy.value !== 'balanced') {
       formData.append('strategy', selectedStrategy.value)
     }
     if (selectedEvent.value) {
       formData.append('event', selectedEvent.value)
+    }
+    if (selectedCornerstones.value.length > 0) {
+      formData.append('cornerstones', selectedCornerstones.value.join(','))
     }
 
     // Call API
@@ -270,6 +307,7 @@ const resetAnalysis = () => {
   gameState.value = null
   selectedStrategy.value = 'balanced'
   selectedEvent.value = ''
+  selectedCornerstones.value = []
   uploadRef.value?.clearImage()
 }
 </script>
@@ -369,7 +407,8 @@ const resetAnalysis = () => {
 }
 
 .strategy-desc,
-.event-desc {
+.event-desc,
+.cornerstone-desc {
   margin-top: 16px;
   padding: 12px;
   background: #f5f7fa;
@@ -383,6 +422,26 @@ const resetAnalysis = () => {
   background: #fef0f0;
   color: #f56c6c;
   border-left: 4px solid #f56c6c;
+}
+
+.cornerstone-section {
+  margin-bottom: 24px;
+}
+
+.cornerstone-section h4 {
+  margin: 0 0 12px 0;
+  color: #303133;
+}
+
+:deep(.el-checkbox-group) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+:deep(.el-checkbox) {
+  margin-right: 0;
+  margin-bottom: 8px;
 }
 
 :deep(.urgent-event .el-radio-button__inner) {

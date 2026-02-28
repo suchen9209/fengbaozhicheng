@@ -58,7 +58,7 @@ class GameState:
     """Game state extracted from screenshot"""
     available_blueprints: List[str]
     resources: Dict[str, int]
-    species: str
+    species: List[str]  # Changed from str to List[str] to support multiple species
     confidence: Dict[str, float] = field(default_factory=dict)
     
     def has_resources_for(self, blueprint: 'Blueprint') -> bool:
@@ -106,6 +106,8 @@ class Recommendation:
     details: Blueprint
     buildable: bool = False
     missing_resources: Dict[str, Dict[str, int]] = field(default_factory=dict)
+    cornerstone_bonus: float = 1.0  # 基石加成倍数
+    recommended_cornerstones: List[str] = field(default_factory=list)  # 推荐的基石
 
 
 @dataclass
